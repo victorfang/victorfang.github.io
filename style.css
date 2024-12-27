@@ -1,0 +1,607 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Typography */
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin: 25px 0 15px 0;
+    color: #444;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 4px !important;
+}
+
+/* Sections */
+section {
+    margin: 40px 0;
+}
+
+/* Links */
+a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Lists */
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 15px;
+}
+
+/* Profile styles */
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #eee;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    background: #fff;
+    padding: 3px;
+}
+
+.profile-text {
+    flex: 1;
+}
+
+.profile-text p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    body {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .profile {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .profile-image {
+        width: 120px;
+        height: 120px;
+        border: 2px solid #eee;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        padding: 3px;
+    }
+}
+
+/* Blog Grid */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.blog-card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.blog-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.blog-thumbnail {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.blog-card h3 {
+    font-size: 1.2em;
+    margin: 0.8rem;
+    color: #333;
+}
+
+.blog-date {
+    font-size: 0.9em;
+    color: #666;
+    margin: 0.5rem 0.8rem;
+}
+
+.blog-excerpt {
+    font-size: 0.9em;
+    color: #666;
+    margin: 0.8rem;
+    line-height: 1.4;
+}
+
+/* Responsive adjustments for blog grid */
+@media (max-width: 600px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+/* Navigation */
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.nav-left {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.main-nav a {
+    margin-right: 1.5rem;
+    color: #666;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.main-nav a:hover {
+    color: #000;
+}
+
+@media (max-width: 600px) {
+    .main-nav {
+        display: flex;
+        justify-content: space-between;
+        margin: 1rem 0;
+    }
+    
+    .main-nav a {
+        margin-right: 0;
+        font-size: 0.9em;
+    }
+
+    .nav-left {
+        display: flex;
+        justify-content: space-between;
+        flex: 1;
+        margin-right: 1rem;
+    }
+    
+    .nav-left a {
+        font-size: 0.9em;
+    }
+}
+
+/* Media Grid - Karpathy style */
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.media-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #fff;
+    transition: transform 0.2s;
+}
+
+.media-card:hover {
+    transform: scale(1.05);
+}
+
+.media-thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.media-info {
+    padding: 10px;
+    text-align: center;
+}
+
+.media-info h3 {
+    font-size: 0.9em;
+    margin: 0.3rem 0;
+    color: #333;
+    font-weight: normal;
+}
+
+.media-venue {
+    font-size: 0.8em;
+    color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1000px) {
+    .media-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .media-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .media-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Publications styles */
+.publications-list {
+    margin-top: 1.5rem;
+}
+
+.publication-item {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+}
+
+.publication-item:last-child {
+    border-bottom: none;
+}
+
+.publication-item h3 {
+    font-size: 1.2em;
+    margin-bottom: 0.5rem;
+}
+
+.publication-meta {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 0.8rem;
+}
+
+.publication-excerpt {
+    color: #444;
+    line-height: 1.6;
+}
+
+/* Add hover effect for publication links */
+.publication-item a {
+    color: #333;
+    text-decoration: none;
+}
+
+.publication-item a:hover {
+    color: #0366d6;
+}
+
+.nav-right {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.social-logo {
+    height: 20px;
+    width: auto;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.social-logo:hover {
+    opacity: 1;
+}
+
+/* Update mobile styles */
+@media (max-width: 600px) {
+    .social-logo {
+        height: 18px;
+    }
+}
+
+.publication-thumbnail {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+/* Social links section - Karpathy style */
+.social-links {
+    margin: 1.5rem 0;
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+.social-links p {
+    margin: 0.3rem 0;
+}
+
+.social-links a {
+    color: #666;
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    color: #0366d6;
+    text-decoration: underline;
+}
+
+.social-links b {
+    color: #333;
+    font-weight: 500;
+    margin-right: 0.5rem;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+}
+
+.social-links a:hover .social-icon {
+    opacity: 1;
+}
+
+.music-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.music-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #fff;
+    transition: transform 0.2s;
+}
+
+.music-card:hover {
+    transform: scale(1.05);
+}
+
+.music-thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.music-info {
+    padding: 10px;
+    text-align: center;
+}
+
+.container .music-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.container .music-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #fff;
+    transition: transform 0.2s;
+}
+
+.container .music-card:hover {
+    transform: scale(1.05);
+}
+
+.container .music-thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.container .music-info {
+    padding: 10px;
+    text-align: center;
+}
+
+.timeline section {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.timeline h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.timeline ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.timeline ul ul {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.company-logos {
+    flex: 0 0 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    height: fit-content;
+}
+
+.company-logos img {
+    width: 160px;
+    height: auto;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+    object-fit: contain;
+}
+
+.company-logos img:hover {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+.timeline-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .timeline section {
+        flex-direction: column;
+    }
+    
+    .company-logos {
+        flex: 0 0 auto;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        width: 100%;
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+    
+    .company-logos img {
+        width: 120px;
+        height: auto;
+    }
+
+    .company-logos img:hover {
+        filter: grayscale(0%);
+        transform: scale(1.05);
+    }
+}
+
+.timeline a {
+    color: #0066cc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.timeline a:hover {
+    color: #004499;
+    text-decoration: underline;
+}
+
+/* Add responsive adjustment for mobile */
+@media (max-width: 600px) {
+    .company-logos img {
+        height: 45px;
+    }
+}
+
+.bio {
+    margin: 2rem 0 3rem;
+    line-height: 1.6;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.bio p {
+    margin-bottom: 1rem;
+}
+
+.bio p:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+    .bio {
+        font-size: 1em;
+        margin: 1.5rem 0 2rem;
+    }
+}
+
+.misc {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.misc h2 {
+    font-size: 1.2em;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.patent-reference {
+    margin: 1rem 0 2rem;
+    color: #666;
+    font-size: 0.95em;
+}
+
+.patent-reference a {
+    color: #0066cc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.patent-reference a:hover {
+    color: #004499;
+    text-decoration: underline;
+} 

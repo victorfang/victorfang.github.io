@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poker Probability Simulation Explained</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Poker Probability Simulation Explained</h1>
+        <p>Understanding the code behind simulating poker probabilities</p>
+    </header>
+    <main>
+        <section>
+            <h2>Introduction</h2>
+            <p>This Python script simulates dealing cards from two decks to four players and calculates the probability of getting four, five, six, seven, or eight of a kind in a player's hand.</p>
+            <img src="poker_hand.jpg" alt="Card Deck">
+        </section>
+        <section>
+            <h2>Creating a Double Deck</h2>
+            <p>The <code>create_double_deck</code> function creates a double deck of cards, including four jokers.</p>
+            <pre><code class="language-python">
+def create_double_deck():
+    suits = ['♠', '♣', '♥', '♦']
+    numbers = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+    deck = [(num, suit) for num in numbers for suit in suits] * 2
+    jokers = [('Joker', 'Black'), ('Joker', 'Red')] * 2
+    deck.extend(jokers)
+    return deck
+            </code></pre>
+            <p>This function generates a list of tuples representing each card in the deck.</p>
+        </section>
+        <section>
+            <h2>Dealing Cards</h2>
+            <p>The <code>deal_cards</code> function shuffles the deck and deals the cards to players.</p>
+            <pre><code class="language-python">
+def deal_cards(deck, num_players=4):
+    random.shuffle(deck)
+    cards_per_player = len(deck) // num_players
+    hands = [deck[i * cards_per_player:(i + 1) * cards_per_player] for i in range(num_players)]
+    return hands
+            </code></pre>
+            <p>This function ensures each player receives an equal number of cards.</p>
+        </section>
+        <section>
+            <h2>Checking for N of a Kind</h2>
+            <p>The <code>has_n_of_a_kind</code> function checks if a hand contains n cards of the same number.</p>
+            <pre><code class="language-python">
+def has_n_of_a_kind(hand, n):
+    numbers = [card[0] for card in hand]
+    return max(Counter(numbers).values()) >= n
+            </code></pre>
+            <p>This function uses the <code>Counter</code> class to count occurrences of each card number.</p>
+        </section>
+        <section>
+            <h2>Running the Simulation</h2>
+            <p>The <code>run_simulation</code> function runs multiple simulations to calculate probabilities.</p>
+            <pre><code class="language-python">
+def run_simulation(num_simulations=100000):
+    results = {4: 0, 5: 0, 6: 0, 7: 0, 8: 0}
+    for _ in range(num_simulations):
+        deck = create_double_deck()
+        hands = deal_cards(deck)
+        for n in results.keys():
+            if any(has_n_of_a_kind(hand, n) for hand in hands):
+                results[n] += 1
+    probabilities = {n: count / num_simulations for n, count in results.items()}
+    return probabilities
+            </code></pre>
+            <p>This function simulates the game multiple times to estimate the probability of different outcomes.</p>
+        </section>
+        <section>
+            <h2>Example Hand Visualization</h2>
+            <p>The <code>main</code> function demonstrates an example deal and highlights significant hands.</p>
+            <img src="poker_hand.jpg" alt="Poker Hand">
+        </section>
+        <section>
+            <h2>Monte Carlo Simulation: History and Facts</h2>
+            <p>Monte Carlo Simulation is a technique that uses randomness to solve problems that might be deterministic in principle. It was named after the Monte Carlo Casino in Monaco, reflecting the element of chance and gambling.</p>
+            <ul>
+                <li><strong>Origin:</strong> The method was developed by scientists working on the Manhattan Project during World War II, notably by Stanislaw Ulam and John von Neumann.</li>
+                <li><strong>Applications:</strong> It is used in various fields such as finance, engineering, supply chain, and project management to model the probability of different outcomes in a process that cannot easily be predicted due to the intervention of random variables.</li>
+                <li><strong>Interesting Fact:</strong> The Monte Carlo method was first used to simulate neutron diffusion in nuclear fission.</li>
+                <li><strong>Modern Use:</strong> Today, Monte Carlo simulations are used in risk analysis and decision-making processes, providing a range of possible outcomes and their probabilities.</li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Poker Simulation Blog</p>
+    </footer>
+</body>
+</html> 
