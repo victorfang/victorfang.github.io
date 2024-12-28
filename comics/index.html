@@ -6,6 +6,45 @@
     <title>Comics - Victor Fang</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="comics.css">
+    <style>
+        .joke {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #ffffe0; /* Light yellow background */
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const jokes = [
+                "Why do programmers prefer dark mode? Because light attracts bugs!",
+                "How do you comfort a JavaScript bug? You console it!",
+                "Why was the JavaScript developer sad? Because he didn't know how to 'null' his feelings.",
+                "Why do Python programmers prefer snakes? Because they love to 'import' them!",
+                "Why did the developer go broke? Because he used up all his cache!",
+                "Why do programmers hate nature? It has too many bugs.",
+                "Why was the computer cold? It left its Windows open!",
+                "Why do programmers always mix up Christmas and Halloween? Because Oct 31 == Dec 25!",
+                "Why did the developer quit his job? He didn't get arrays.",
+                "Why did GPT-4o get promoted? It had all the right answers!"
+            ];
+
+            // Select exactly one random joke
+            const randomIndex = Math.floor(Math.random() * jokes.length);
+            const selectedJoke = jokes[randomIndex];
+
+            const jokesContainer = document.getElementById('jokes-container');
+            const jokeElement = document.createElement('p');
+            jokeElement.textContent = selectedJoke;
+            jokeElement.className = 'joke';
+            jokesContainer.appendChild(jokeElement);
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -15,6 +54,9 @@
         </header>
         <div class="comics-grid">
             <div class="comic-item">
+                <div id="jokes-container" class="jokes-container">
+                    <!-- Joke will be inserted here -->
+                </div>
                 <p class="comic-title">Top Coder Comics - Coming in 2025 ! </p>
                 <a href="https://x.com/topcodercomics" target="_blank">
                     <img src="topcodercomics.jpg" alt="TopCoder Comics" class="comic-image">
