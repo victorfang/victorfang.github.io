@@ -1,0 +1,105 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 1rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin: 1rem 0;
+    font-weight: 700;
+}
+
+header a {
+    color: #666;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+header a:hover {
+    color: #1DA1F2;
+}
+
+.comic-item {
+    text-align: center;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background: white;
+    transition: transform 0.3s ease;
+}
+
+.comic-item:hover {
+    transform: translateY(-5px);
+}
+
+.comic-image {
+    width: 70%;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.comic-image:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.comic-title {
+    margin: 1.5rem 0;
+    font-size: 1.4em;
+    color: #333;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.social-link {
+    margin-top: 1.5rem;
+    font-size: 1.1em;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.social-link a {
+    color: #1DA1F2;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.social-link a:hover {
+    background: #1DA1F2;
+    color: white;
+    text-decoration: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .comic-image {
+        width: 90%;
+    }
+    
+    .container {
+        padding: 1rem;
+    }
+    
+    .comic-title {
+        font-size: 1.2em;
+    }
+} 
