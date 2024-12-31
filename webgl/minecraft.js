@@ -377,7 +377,7 @@ function generateTerrain() {
     // Write "ABIGAIL FANG" below
     startX = -25;
     startY = 1;
-    startZ = 8; // Move it forward
+    startZ = 10; // Move it forward
 
     ["A", "B", "I", "G", "A", "I", "L"].forEach(letter => {
         createLetter(letter, startX, startY, startZ, materials.blueText);
