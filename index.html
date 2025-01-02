@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-02YYF5H22B"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-02YYF5H22B');
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Victor Fang 🚀</title>
@@ -323,5 +332,49 @@
             <p>Kudos to Andrej Karpathy (karpathy.ai) for the minimalist inspiration.</p>
         </section>
     </div>
+
+    <script>
+        // Track clicks on social links
+        document.querySelectorAll('.social-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                gtag('event', 'social_click', {
+                    'social_platform': this.textContent.trim(),
+                    'link_url': this.href
+                });
+            });
+        });
+
+        // Track clicks on media cards
+        document.querySelectorAll('.media-card a').forEach(link => {
+            link.addEventListener('click', function() {
+                const title = this.querySelector('h3').textContent;
+                gtag('event', 'media_click', {
+                    'media_title': title,
+                    'link_url': this.href
+                });
+            });
+        });
+
+        // Track clicks on blog cards
+        document.querySelectorAll('.blog-card a').forEach(link => {
+            link.addEventListener('click', function() {
+                const title = this.querySelector('h3').textContent;
+                gtag('event', 'blog_click', {
+                    'blog_title': title,
+                    'link_url': this.href
+                });
+            });
+        });
+
+        // Track navigation clicks
+        document.querySelectorAll('.main-nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                gtag('event', 'nav_click', {
+                    'nav_item': this.textContent,
+                    'link_url': this.href
+                });
+            });
+        });
+    </script>
 </body>
 </html> 
