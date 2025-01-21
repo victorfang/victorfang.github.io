@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-02YYF5H22B"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-02YYF5H22B');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fang Ventures Global LLC - AI Investment & Advisory</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .ventures-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            color: #1a73e8;
+            margin-bottom: 1rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1a73e8;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .hero-logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ventures-container">
+        <a href="../index.html" class="back-button">← Home</a>
+
+        <section class="hero">
+            <img src="/assets/fangventures.png" alt="Fang Ventures Logo" class="hero-logo">
+            <h1>Fang Ventures Global LLC</h1>
+            <p>Investing in Foundational AI for Our Next Generation</p>
+        </section>
+
+        <section class="about">
+            <p>Founded in 2023 by AI entrepreneur Dr. Victor Fang, we are experts offering consulting, advising, and investment around Generative AI, cybersecurity, and emerging technology.</p>
+        </section>
+
+        <section class="services">
+            <div class="service-card">
+                <h3>AI Advisory</h3>
+                <p>Authored impactful AI Auditing white papers in partnership with ISACA, the world's largest IT auditing organization.</p>
+            </div>
+            <div class="service-card">
+                <h3>Technical Due Diligence</h3>
+                <p>Served as technical due diligence advisors for various $100M+ Mergers & Acquisitions for VC/PE firms.</p>
+            </div>
+            <div class="service-card">
+                <h3>Investment</h3>
+                <p>Advised and invested in 5 AI startups in generative AI and cybersecurity that are advancing AI for our next generation.</p>
+            </div>
+        </section>
+
+        <section class="stats">
+            <div class="stat-card">
+                <div class="stat-number">5+</div>
+                <p>AI Startups Invested</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">$100M+</div>
+                <p>M&A Advisory</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2023</div>
+                <p>Founded</p>
+            </div>
+        </section>
+
+        <section class="focus-areas">
+            <h2>Investment Focus</h2>
+            <ul>
+                <li>Generative AI Applications</li>
+                <li>AI Infrastructure & Tools</li>
+                <li>Cybersecurity Innovation</li>
+                <li>Emerging Technologies</li>
+            </ul>
+        </section>
+
+        <section class="contact">
+            <h2>Connect With Us</h2>
+            <p>For investment opportunities and advisory services, reach out on <a href="https://www.linkedin.com/in/drvictorfang/" target="_blank">LinkedIn</a></p>
+        </section>
+    </div>
+
+    <script>
+        // Track link clicks
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                gtag('event', 'link_click', {
+                    'link_text': this.textContent,
+                    'link_url': this.href
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
