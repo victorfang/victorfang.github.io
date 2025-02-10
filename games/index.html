@@ -169,21 +169,57 @@
             margin-top: auto;
             border-top: 1px solid rgba(0,0,0,0.1);
         }
+        .new-badge {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: linear-gradient(45deg, #FF416C, #FF4B2B);
+            color: white;
+            padding: 8px 35px;
+            font-size: 0.9em;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transform: rotate(45deg);
+            animation: pulse 2s infinite;
+            z-index: 1;
+        }
+        @keyframes pulse {
+            0% {
+                transform: rotate(45deg) scale(1);
+            }
+            50% {
+                transform: rotate(45deg) scale(1.1);
+            }
+            100% {
+                transform: rotate(45deg) scale(1);
+            }
+        }
     </style>
+    <script>
+        function playClickSound() {
+            const clickSound = document.getElementById('clickSound');
+            clickSound.currentTime = 0; // Reset sound to start
+            clickSound.play();
+        }
+    </script>
 </head>
 <body>
+    <audio id="clickSound" preload="auto">
+        <source src="fairy.wav" type="audio/mpeg">
+    </audio>
     <h1>Victor Fang's Game Collection</h1>
     <div class="game-grid">
-        <a href="emojimatch/">
+        <a href="emojimatch/" onclick="playClickSound(); return true;">
             <div class="game-card">
                 <div class="game-emoji">🎯</div>
                 <h3>Emoji Match</h3>
                 <p>Match and resolve emoji !</p>
             </div>
         </a>
-        <a href="emojibaby/">
+        <a href="emojibaby/" onclick="playClickSound(); return true;">
             <div class="game-card">
-                <div class="game-emoji">🎬</div>
+                <div class="new-badge">NEW!</div>
+                <div class="game-emoji">🐣</div>
                 <h3>Emoji Baby</h3>
                 <p>Guess movies from emoji !</p>
             </div>
