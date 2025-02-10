@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Matching Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px;
+        }
+        .card {
+            width: 80px;
+            height: 80px;
+            background-color: #fff;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            cursor: pointer;
+            transition: transform 0.3s;
+            border: 2px solid #ddd;
+        }
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+        .hidden {
+            visibility: hidden;
+        }
+        #score {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Emoji Matching Game</h1>
+    <div id="score">Matches: 0</div>
+    <div class="game-container" id="gameBoard"></div>
+
+    <script>
+        const emojis = ['🎮', '🎲', '🎯', '🎨', '🎭', '🎪', '🎢', '🎡'];
+        const gameBoard = document.getElementById('gameBoard');
+        const scoreDisplay = document.getElementById('score');
+        let cards = [];
+        let flippedCards = [];
+        let matches = 0;
+
+        // Double the emojis and shuffle them
+        const gameEmojis = [...emojis, ...emojis]
+            .sort(() => Math.random() - 0.5);
+
+        // Create cards
+        gameEmojis.forEach((emoji, index) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.dataset.emoji = emoji;
+            card.dataset.index = index;
+            card.onclick = flipCard;
+            cards.push(card);
+            gameBoard.appendChild(card);
+        });
+
+        function flipCard() {
+            if (flippedCards.length === 2) return;
+            if (flippedCards.includes(this)) return;
+
+            this.innerHTML = this.dataset.emoji;
+            flippedCards.push(this);
+
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 1000);
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            if (card1.dataset.emoji === card2.dataset.emoji) {
+                matches++;
+                scoreDisplay.textContent = `Matches: ${matches}`;
+                card1.onclick = null;
+                card2.onclick = null;
+                if (matches === emojis.length) {
+                    alert('Congratulations! You won!');
+                }
+            } else {
+                card1.innerHTML = '';
+                card2.innerHTML = '';
+            }
+            flippedCards = [];
+        }
+    </script>
+</body>
+</html> 

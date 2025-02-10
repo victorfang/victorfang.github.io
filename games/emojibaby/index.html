@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Baby - VictorFang.com</title>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-02YYF5H22B"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <audio id="correctSound" preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="wrongSound" preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2003/2003-preview.mp3" type="audio/mpeg">
+    </audio>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            color: #2c3e50;
+        }
+        .game-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .game-container:hover {
+            transform: translateY(-5px);
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .emoji-display {
+            font-size: 8rem;
+            margin: 1.5rem 0;
+            min-height: 180px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px 10px;
+            border-radius: 15px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            word-break: keep-all;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .input-container {
+            margin: 1.5rem 0;
+        }
+        input[type="text"] {
+            padding: 0.8rem 1.2rem;
+            font-size: 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 300px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        input[type="text"]:focus {
+            border-color: #a777e3;
+            box-shadow: 0 0 10px rgba(167, 119, 227, 0.2);
+        }
+        button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #6e8efb, #a777e3);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(45deg, #5d7ef8, #9665d3);
+        }
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1rem 0;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+        .score {
+            color: #6e8efb;
+            margin: 0;
+        }
+        .tries-left {
+            color: #e74c3c;
+            margin: 0;
+            font-size: inherit;
+            font-weight: bold;
+        }
+        .hint {
+            color: #666;
+            font-style: italic;
+            margin-top: 1.5rem;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .skip-button {
+            background: linear-gradient(45deg, #ff9966, #ff5e62);
+        }
+        .skip-button:hover {
+            background: linear-gradient(45deg, #ff8a52, #ff4d52);
+        }
+        .hint-button {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            padding: 0;
+            margin: 1rem;
+        }
+        .hint-button:hover {
+            background: linear-gradient(45deg, #2980b9, #2573a7);
+        }
+        .skip-button:disabled {
+            background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+            cursor: not-allowed;
+            transform: none;
+        }
+        .games-remaining {
+            color: #e74c3c;
+            font-size: 1rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        .achievement-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .achievement-content {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            max-width: 500px;
+            width: 90%;
+        }
+        .achievement-canvas {
+            margin: 1rem 0;
+            border-radius: 10px;
+        }
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        .share-button {
+            background: #fff;
+            color: #2c3e50;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .share-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 600px) {
+            .game-container {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .emoji-display {
+                font-size: 6rem;
+                min-height: 140px;
+                max-width: 300px;
+            }
+            button {
+                padding: 0.7rem 1.2rem;
+                font-size: 1rem;
+            }
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        .share-container {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .share-guess-button {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1rem;
+            padding: 0.8rem 2rem;
+        }
+        .share-guess-button:hover {
+            background: linear-gradient(45deg, #27ae60, #219a52);
+        }
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            margin: -1rem 0 1rem 0;
+            font-weight: normal;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="player-info">
+            <span class="player-name" id="playerName">Player</span>
+            <button class="edit-name-btn" onclick="editName()">✏️</button>
+        </div>
+        <h1>Guess a movie ? 🤔</h1>
+        <div class="stats-container">
+            <div class="score">🎯  <span id="score">0</span></div>
+            <div class="tries-left" id="triesLeft">❤️ Tries left: 3</div>
+        </div>
+        <div class="emoji-display" id="emojiDisplay"></div>
+        <div class="input-container">
+            <input type="text" id="guessInput" placeholder="Type your guess here..." autocomplete="off">
+        </div>
+        <div class="button-container">
+            <button onclick="checkGuess()">Submit Guess</button>
+            <button class="skip-button" onclick="skipPuzzle()" id="skipButton" disabled>Skip</button>
+            <button class="hint-button" onclick="toggleHint()" id="hintButton">?</button>
+        </div>
+        <div class="share-container">
+            <button class="share-guess-button" onclick="shareCurrentGuess()">📸 Share Guess</button>
+        </div>
+        <p class="hint" id="hint" style="display: none;"></p>
+        <div class="games-remaining" id="gamesRemaining"></div>
+    </div>
+
+    <div class="achievement-modal" id="achievementModal">
+        <div class="achievement-content">
+            <h2>🎉 Achievement Unlocked! 🎉</h2>
+            <p>You've completed today's Emoji Baby 🐣 challenge!</p>
+            <canvas id="achievementCanvas" class="achievement-canvas"></canvas>
+            <p>Share your achievement!</p>
+            <div class="share-buttons">
+                <button class="share-button" onclick="downloadAchievement()">Download Image</button>
+                <button class="share-button" onclick="shareAchievement()">Share</button>
+            </div>
+            <p><small>Play again tomorrow at victorfang.com/games</small></p>
+        </div>
+    </div>
+
+    <footer>
+        All Rights Reserved. VictorFang.com
+    </footer>
+
+    <script>
+        const puzzles = [
+            { emojis: "🦑🎮", answer: "squid game" },
+            { emojis: "🐜👨", answer: "ant man" },
+            { emojis: "🧊⚔️", answer: "ice age" },
+            { emojis: "🦁👑", answer: "lion king" },
+            { emojis: "🕷️👨", answer: "spider man" },
+            { emojis: "⭐⚔️", answer: "star wars" },
+            { emojis: "👻🔫", answer: "ghost busters" },
+            { emojis: "🧙💍", answer: "lord of the rings" },
+            { emojis: "🦖🏞️", answer: "jurassic park" },
+            { emojis: "🏃🍫", answer: "forrest gump" },
+            { emojis: "🎭🃏", answer: "joker" },
+            { emojis: "🦇👨", answer: "batman" },
+            { emojis: "🧜‍♀️🐠", answer: "little mermaid" },
+            { emojis: "🚢❄️", answer: "titanic" },
+            { emojis: "🎩🍫", answer: "charlie and the chocolate factory" },
+            { emojis: "❄️👸", answer: "frozen" },
+            { emojis: "🔨⚡", answer: "thor" },
+            { emojis: "🧙⚡", answer: "harry potter" },
+            { emojis: "🍄👨", answer: "super mario" },
+            { emojis: "🤖👽", answer: "avatar" },
+            { emojis: "🦈🌪️", answer: "sharknado" },
+            { emojis: "🎪🎭", answer: "the greatest showman" },
+            { emojis: "🧟🏃", answer: "walking dead" },
+            { emojis: "👨👧🎲", answer: "stranger things" },
+            { emojis: "🔍🐠", answer: "finding nemo" },
+            { emojis: "👶💼", answer: "baby boss" },
+            { emojis: "🎸💀", answer: "coco" },
+            { emojis: "🦁👑", answer: "lion king" },
+            { emojis: "🧸🔫", answer: "ted" },
+            { emojis: "🦖🌍", answer: "jurassic world" },
+            { emojis: "🌊🧜‍♀️", answer: "the little mermaid" },
+            { emojis: "🎪🐘👂", answer: "dumbo" },
+            { emojis: "🧸🚗", answer: "toy story" },
+            { emojis: "🦁🌅", answer: "the lion king" },
+            { emojis: "👩‍🦰👠", answer: "cinderella" },
+            { emojis: "🎭👻🎹", answer: "phantom of the opera" },
+            { emojis: "🤖❤️🌱", answer: "wall-e" },
+            { emojis: "🏰🥀", answer: "beauty and the beast" },
+            { emojis: "🧙‍♂️💍🌋", answer: "lord of the rings" },
+            { emojis: "🦖🏃‍♂️", answer: "jurassic park" },
+            { emojis: "👨‍🚀🌌⏰", answer: "interstellar" },
+            { emojis: "🎸💀🇲🇽", answer: "coco" },
+            { emojis: "🔍🐠🌊", answer: "finding nemo" },
+            { emojis: "🎪🎭🎩", answer: "the greatest showman" },
+            { emojis: "🧊👑", answer: "frozen" },
+            { emojis: "🏠🎈👴", answer: "up" },
+            { emojis: "🐼🥋", answer: "kung fu panda" },
+            { emojis: "🎮🏃‍♂️", answer: "ready player one" },
+            { emojis: "🤴🦁", answer: "the lion king" },
+            { emojis: "🧟‍♂️🏃‍♂️", answer: "world war z" },
+            { emojis: "🎸🤘👑", answer: "bohemian rhapsody" },
+            { emojis: "🦇🃏", answer: "the dark knight" },
+            { emojis: "🚗⚡️", answer: "cars" },
+            { emojis: "👨‍👦🌟", answer: "big" },
+            { emojis: "🎪🐯", answer: "life of pi" },
+            { emojis: "🧙‍♀️👠", answer: "the wizard of oz" },
+            { emojis: "🏹🏰", answer: "brave" },
+            { emojis: "🐁👨‍🍳", answer: "ratatouille" },
+            { emojis: "🤥🪚", answer: "pinocchio" },
+            { emojis: "🎸🎤🏫", answer: "school of rock" },
+            { emojis: "🦖👶", answer: "baby driver" },
+            { emojis: "🎰🌃", answer: "the hangover" },
+            { emojis: "🏰👸💤", answer: "sleeping beauty" },
+            { emojis: "🌴🏐", answer: "cast away" },
+            { emojis: "🎭🤡", answer: "joker" },
+            { emojis: "🚢🌊💎", answer: "titanic" },
+            { emojis: "🧑‍🤝‍🧑🎭", answer: "face off" },
+            { emojis: "🦁🧙‍♀️🚪", answer: "narnia" },
+            { emojis: "🎪🐘🎭", answer: "water for elephants" },
+            { emojis: "👨‍👧🎣", answer: "finding neverland" },
+            { emojis: "🎸👻", answer: "ghost" },
+            { emojis: "🏛️🏃‍♂️", answer: "night at the museum" },
+            { emojis: "🎭🎨", answer: "the mask" },
+            { emojis: "🧜‍♀️🦈", answer: "the meg" },
+            { emojis: "🎪🎭🎪", answer: "the circus" },
+            { emojis: "🚀🌍", answer: "planet of the apes" },
+            { emojis: "🎸🏫", answer: "high school musical" },
+            { emojis: "🤖‍♂️🐺", answer: "twilight" },
+            { emojis: "🎭😱", answer: "scream" },
+            { emojis: "🏃‍♂️💊", answer: "the matrix" }
+        ];
+
+        let currentPuzzleIndex = 0;
+        let score = 0;
+        const scoreElement = document.getElementById('score');
+        const emojiDisplay = document.getElementById('emojiDisplay');
+        const guessInput = document.getElementById('guessInput');
+        const hintElement = document.getElementById('hint');
+        const correctSound = document.getElementById('correctSound');
+        const wrongSound = document.getElementById('wrongSound');
+        let triesRemaining = 3;
+        const triesLeftElement = document.getElementById('triesLeft');
+        const skipButton = document.getElementById('skipButton');
+        const playerNameElement = document.getElementById('playerName');
+
+        // Initialize game data
+        const MAX_GAMES = 10;
+        const STORAGE_KEY = 'emojiBabyGameData';
+        const achievementModal = document.getElementById('achievementModal');
+        const gamesRemainingElement = document.getElementById('gamesRemaining');
+
+        let gameData = JSON.parse(localStorage.getItem(STORAGE_KEY) || JSON.stringify({
+            gamesPlayed: 0,
+            lastPlayDate: null
+        }));
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function showPuzzle() {
+            if (currentPuzzleIndex >= puzzles.length) {
+                currentPuzzleIndex = 0;
+                shuffleArray(puzzles);
+            }
+            emojiDisplay.textContent = puzzles[currentPuzzleIndex].emojis;
+            guessInput.value = '';
+            hintElement.textContent = '';
+            hintElement.style.display = 'none';
+            triesRemaining = 3;
+            updateTriesDisplay();
+            skipButton.disabled = true;
+        }
+
+        function updateTriesDisplay() {
+            const tries = Math.max(0, triesRemaining);
+            triesLeftElement.textContent = `❤️ ${tries}`;
+        }
+
+        function triggerConfetti() {
+            const duration = 3000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { 
+                startVelocity: 45,
+                spread: 360,
+                ticks: 100,
+                zIndex: 0,
+                colors: ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF']
+            };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                // Launch confetti from multiple positions
+                confetti({
+                    ...defaults,
+                    particleCount: 100,
+                    origin: { x: randomInRange(0.1, 0.3), y: 0.1 }
+                });
+                confetti({
+                    ...defaults,
+                    particleCount: 100,
+                    origin: { x: randomInRange(0.7, 0.9), y: 0.1 }
+                });
+                confetti({
+                    ...defaults,
+                    particleCount: 100,
+                    origin: { x: 0.5, y: 0.5 }
+                });
+            }, 250);
+        }
+
+        function checkGuess() {
+            if (gameData.gamesPlayed >= MAX_GAMES) {
+                hintElement.textContent = "You've reached today's limit. Come back tomorrow!";
+                hintElement.style.display = 'block';
+                return;
+            }
+
+            const guess = guessInput.value.trim().toLowerCase();
+            const puzzle = puzzles[currentPuzzleIndex];
+            
+            if (guess === puzzle.answer) {
+                // Play sound and trigger confetti simultaneously
+                Promise.all([
+                    correctSound.play(),
+                    triggerConfetti()
+                ]);
+                
+                score++;
+                scoreElement.textContent = score;
+                
+                // Update game count
+                gameData.gamesPlayed++;
+                gameData.lastPlayDate = new Date().toDateString();
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(gameData));
+                updateGamesRemaining();
+
+                // Check if reached max games
+                if (gameData.gamesPlayed >= MAX_GAMES) {
+                    generateAchievement();
+                    achievementModal.style.display = 'flex';
+                }
+                
+                // Add a small delay before showing next puzzle
+                setTimeout(() => {
+                    currentPuzzleIndex++;  // Move to next puzzle
+                    showPuzzle();
+                }, 1500);
+            } else {
+                wrongSound.play();
+                if (triesRemaining > 0) {
+                    triesRemaining--;
+                    updateTriesDisplay();
+                    
+                    if (triesRemaining <= 0) {
+                        skipButton.disabled = false;
+                        hintElement.style.display = 'block';
+                        hintElement.textContent = "No more tries left! You can skip now.";
+                    } else {
+                        hintElement.style.display = 'block';
+                        hintElement.textContent = "Try again!";
+                        setTimeout(() => {
+                            hintElement.style.display = 'none';
+                        }, 1500);
+                    }
+                }
+            }
+        }
+
+        function skipPuzzle() {
+            if (triesRemaining <= 0) {
+                // Show the answer
+                hintElement.style.display = 'block';
+                hintElement.textContent = `The answer was: ${puzzles[currentPuzzleIndex].answer}`;
+                
+                // Wait 2 seconds then move to next puzzle
+                setTimeout(() => {
+                    currentPuzzleIndex++;  // Move to next puzzle
+                    showPuzzle();
+                }, 2000);
+                
+                // Update game count
+                gameData.gamesPlayed++;
+                gameData.lastPlayDate = new Date().toDateString();
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(gameData));
+                updateGamesRemaining();
+
+                // Check if reached max games
+                if (gameData.gamesPlayed >= MAX_GAMES) {
+                    generateAchievement();
+                    achievementModal.style.display = 'flex';
+                }
+            }
+        }
+
+        function toggleHint() {
+            if (hintElement.style.display === 'none') {
+                const currentPuzzle = puzzles[currentPuzzleIndex];
+                const firstLetter = currentPuzzle.answer.charAt(0).toUpperCase();
+                hintElement.textContent = `First letter: ${firstLetter}`;
+                hintElement.style.display = 'block';
+            } else {
+                hintElement.style.display = 'none';
+            }
+        }
+
+        function updateScore() {
+            scoreElement.textContent = score;
+        }
+
+        function updateGamesRemaining() {
+            gamesRemainingElement.textContent = `Games remaining: ${MAX_GAMES - gameData.gamesPlayed}`;
+        }
+
+        function checkDailyReset() {
+            const today = new Date().toDateString();
+            if (gameData.lastPlayDate !== today) {
+                gameData.gamesPlayed = 0;
+                gameData.lastPlayDate = today;
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(gameData));
+            }
+        }
+
+        function editName() {
+            const newName = prompt('Enter your new name:');
+            if (newName) {
+                playerNameElement.textContent = newName;
+                localStorage.setItem('emojiBabyGamePlayerName', newName);
+            }
+        }
+
+        async function shareAchievement() {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'My Emoji Baby Achievement',
+                        text: `I scored ${score} points in Emoji Baby! Play at victorfang.com/games`,
+                        files: [file]
+                    });
+                } catch (err) {
+                    console.log('Share failed:', err);
+                }
+            }
+        }
+
+        function generateAchievement() {
+            ctx.font = 'bold 48px Segoe UI';
+            ctx.fillText('Emoji Baby', canvas.width/2, 100);
+        }
+
+        function logGameEvent(eventType, details) {
+            let gameLogs = JSON.parse(localStorage.getItem('emojiBabyGameLogs') || '[]');
+            gameLogs.push(event);
+            
+            if (gameLogs.length > 1000) {
+                gameLogs = gameLogs.slice(-1000);
+            }
+            
+            localStorage.setItem('emojiBabyGameLogs', JSON.stringify(gameLogs));
+        }
+
+        function viewGameLogs() {
+            const logs = JSON.parse(localStorage.getItem('emojiBabyGameLogs') || '[]');
+            console.table(logs);
+            return logs;
+        }
+
+        function clearGameLogs() {
+            localStorage.removeItem('emojiBabyGameLogs');
+            console.log('Game logs cleared');
+        }
+
+        // Add after the existing event listeners and before initialization
+        guessInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Prevent default form submission
+                checkGuess();
+            }
+        });
+
+        // Initialize game
+        shuffleArray(puzzles);
+        showPuzzle();
+        checkDailyReset();
+        updateGamesRemaining();
+        updateScore();
+
+        function shareCurrentGuess() {
+            // Create a canvas
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size to square
+            const size = 1200;
+            canvas.width = size;
+            canvas.height = size;
+            
+            // Create a more vibrant gradient background
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#FF6B6B');
+            gradient.addColorStop(0.5, '#4ECDC4');
+            gradient.addColorStop(1, '#45B7D1');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Add a stylish container with shadow
+            ctx.save();
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+            ctx.shadowBlur = 30;
+            ctx.shadowOffsetY = 10;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            roundRect(ctx, size * 0.1, size * 0.1, size * 0.8, size * 0.8, 40);
+            ctx.fill();
+            ctx.restore();
+            
+            // Add decorative elements
+            ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(size * 0.2, size * 0.35);
+            ctx.lineTo(size * 0.8, size * 0.35);
+            ctx.stroke();
+            
+            // Center align all text
+            ctx.textAlign = 'center';
+            
+            // Add "Guess a movie?" with thinking emoji
+            ctx.fillStyle = '#2c3e50';
+            ctx.font = 'bold 70px Segoe UI';
+            ctx.fillText('Guess a movie? 🤔', size/2, size * 0.3);
+            
+            // Add current emoji (larger and centered)
+            ctx.font = '180px Segoe UI';
+            ctx.fillText(puzzles[currentPuzzleIndex].emojis, size/2, size * 0.52);
+            
+            // Add decorative line below emoji
+            ctx.beginPath();
+            ctx.moveTo(size * 0.2, size * 0.65);
+            ctx.lineTo(size * 0.8, size * 0.65);
+            ctx.stroke();
+            
+            // Add URL with icon
+            ctx.font = 'bold 55px Segoe UI';
+            ctx.fillStyle = '#2c3e50';
+            ctx.fillText('🎮  https://emoji.baby', size/2, size * 0.75);
+            
+            // Add subtle pattern overlay
+            ctx.globalAlpha = 0.03;
+            for(let i = 0; i < size; i += 20) {
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(size, i);
+                ctx.stroke();
+            }
+            ctx.globalAlpha = 1.0;
+            
+            // Download the image
+            const link = document.createElement('a');
+            link.download = 'emoji-baby-victorfang.com.jpg';
+            link.href = canvas.toDataURL('image/jpeg', 1.0);
+            link.click();
+        }
+
+        // Helper function for rounded rectangles
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+    </script>
+</body>
+</html> 

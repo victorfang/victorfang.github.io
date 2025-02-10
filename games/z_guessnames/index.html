@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmojiName</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <audio id="correctSound" preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="wrongSound" preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2003/2003-preview.mp3" type="audio/mpeg">
+    </audio>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            color: #2c3e50;
+        }
+        .game-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .game-container:hover {
+            transform: translateY(-5px);
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .emoji-display {
+            font-size: 10rem;
+            margin: 1.5rem 0;
+            min-height: 200px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .input-container {
+            margin: 1.5rem 0;
+        }
+        input[type="text"] {
+            padding: 0.8rem 1.2rem;
+            font-size: 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 300px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        input[type="text"]:focus {
+            border-color: #a777e3;
+            box-shadow: 0 0 10px rgba(167, 119, 227, 0.2);
+        }
+        button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #6e8efb, #a777e3);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(45deg, #5d7ef8, #9665d3);
+        }
+        .score {
+            font-size: 1.4rem;
+            margin: 1rem 0;
+            font-weight: bold;
+            color: #6e8efb;
+        }
+        .hint {
+            color: #666;
+            font-style: italic;
+            margin-top: 1.5rem;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .skip-button {
+            background: linear-gradient(45deg, #ff9966, #ff5e62);
+        }
+        .skip-button:hover {
+            background: linear-gradient(45deg, #ff8a52, #ff4d52);
+        }
+        .hint-button {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            padding: 0;
+            margin: 1rem;
+        }
+        .hint-button:hover {
+            background: linear-gradient(45deg, #2980b9, #2573a7);
+        }
+        .skip-button:disabled {
+            background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+            cursor: not-allowed;
+            transform: none;
+        }
+        .tries-left {
+            color: #e74c3c;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Add responsive design */
+        @media (max-width: 600px) {
+            .game-container {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .emoji-display {
+                font-size: 8rem;
+            }
+            button {
+                padding: 0.7rem 1.2rem;
+                font-size: 1rem;
+            }
+        }
+        .player-info {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .player-name {
+            font-size: 1.2rem;
+            color: #6e8efb;
+            font-weight: bold;
+        }
+        .edit-name-btn {
+            background: none;
+            border: none;
+            color: #a777e3;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 1rem;
+            box-shadow: none;
+        }
+        .edit-name-btn:hover {
+            color: #6e8efb;
+            transform: none;
+            background: none;
+            box-shadow: none;
+        }
+        .name-input {
+            padding: 0.5rem;
+            border: 2px solid #6e8efb;
+            border-radius: 8px;
+            font-size: 1rem;
+            max-width: 200px;
+        }
+        .achievement-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .achievement-content {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            max-width: 500px;
+            width: 90%;
+        }
+        .achievement-canvas {
+            margin: 1rem 0;
+            border-radius: 10px;
+        }
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        .share-button {
+            background: #fff;
+            color: #2c3e50;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .share-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .games-remaining {
+            color: #e74c3c;
+            font-size: 1rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="player-info">
+            <span class="player-name" id="playerName">Player</span>
+            <button class="edit-name-btn" onclick="editName()">✏️</button>
+        </div>
+        <h1>EmojiName</h1>
+        <div class="score">Score: <span id="score">0</span></div>
+        <div class="emoji-display" id="emojiDisplay"></div>
+        <div class="input-container">
+            <input type="text" id="guessInput" placeholder="Type your guess here..." autocomplete="off">
+        </div>
+        <div class="tries-left" id="triesLeft"></div>
+        <button onclick="checkGuess()">Submit Guess</button>
+        <button class="skip-button" onclick="skipPuzzle()" id="skipButton" disabled>Skip</button>
+        <button class="hint-button" onclick="toggleHint()" id="hintButton">?</button>
+        <p class="hint" id="hint" style="display: none;"></p>
+        <div class="games-remaining" id="gamesRemaining"></div>
+    </div>
+    <div class="achievement-modal" id="achievementModal">
+        <div class="achievement-content">
+            <h2>🎉 Achievement Unlocked! 🎉</h2>
+            <p>You've completed today's EmojiName challenge!</p>
+            <canvas id="achievementCanvas" class="achievement-canvas"></canvas>
+            <p>Share your achievement!</p>
+            <div class="share-buttons">
+                <button class="share-button" onclick="downloadAchievement()">Download Image</button>
+                <button class="share-button" onclick="shareAchievement()">Share</button>
+            </div>
+            <p><small>Play again tomorrow at victorfang.com/games</small></p>
+        </div>
+    </div>
+
+    <script>
+        const puzzles = [
+            { emojis: "🦑🎮", answer: "squid game" },
+            { emojis: "🐜👨", answer: "ant man" },
+            { emojis: "🧊⚔️", answer: "ice age" },
+            { emojis: "🦁👑", answer: "lion king" },
+            { emojis: "🕷️👨", answer: "spider man" },
+            { emojis: "⭐⚔️", answer: "star wars" },
+            { emojis: "👻🔫", answer: "ghost busters" },
+            { emojis: "🧙💍", answer: "lord of the rings" },
+            { emojis: "🦖🏞️", answer: "jurassic park" },
+            { emojis: "🏃🍫", answer: "forrest gump" },
+            { emojis: "🎭🃏", answer: "joker" },
+            { emojis: "🦇👨", answer: "batman" },
+            { emojis: "🧜‍♀️🐠", answer: "little mermaid" },
+            { emojis: "🚢❄️", answer: "titanic" },
+            { emojis: "🎩🍫", answer: "charlie and the chocolate factory" },
+            
+            { emojis: "❄️👸", answer: "frozen" },
+            { emojis: "🔨⚡", answer: "thor" },
+            { emojis: "🧙⚡", answer: "harry potter" },
+            { emojis: "🍄👨", answer: "super mario" },
+            { emojis: "🤖👽", answer: "avatar" },
+            { emojis: "🦈🌪️", answer: "sharknado" },
+            { emojis: "🎪🎭", answer: "the greatest showman" },
+            { emojis: "🧟🏃", answer: "walking dead" },
+            { emojis: "👨👧🎲", answer: "stranger things" },
+            { emojis: "🔍🐠", answer: "finding nemo" },
+            { emojis: "👶💼", answer: "baby boss" },
+            { emojis: "🎸💀", answer: "coco" },
+            { emojis: "🦁👑", answer: "lion king" },
+            { emojis: "🧸🔫", answer: "ted" },
+            { emojis: "🦖🌍", answer: "jurassic world" },
+            { emojis: "👨🚀⭐", answer: "interstellar" },
+            { emojis: "🤖❤️", answer: "wall-e" },
+            { emojis: "👻🎭", answer: "phantom of the opera" },
+            { emojis: "🏰🌹", answer: "beauty and the beast" },
+            { emojis: "🐘✈️", answer: "dumbo" },
+            { emojis: "🌊👑", answer: "aquaman" },
+            { emojis: "🦇🃏", answer: "the dark knight" },
+            { emojis: "👑🎤", answer: "bohemian rhapsody" },
+            { emojis: "🏠🎈", answer: "up" },
+            { emojis: "🐼🥋", answer: "kung fu panda" },
+            { emojis: "💊🕶️", answer: "matrix" },
+            { emojis: "🦁🚪", answer: "narnia" },
+            { emojis: "🏎️💨", answer: "fast and furious" },
+            { emojis: "🐉👑", answer: "game of thrones" },
+            { emojis: "🚗🤖", answer: "transformers" },
+            { emojis: "👻👰", answer: "corpse bride" },
+            { emojis: "🎭🎵", answer: "la la land" },
+            { emojis: "😱🔪", answer: "scream" },
+            { emojis: "🧛🌙", answer: "twilight" },
+            { emojis: "🤡🎈", answer: "it" }
+        ];
+
+        let currentPuzzleIndex = 0;
+        let score = 0;
+        const scoreElement = document.getElementById('score');
+        const emojiDisplay = document.getElementById('emojiDisplay');
+        const guessInput = document.getElementById('guessInput');
+        const hintElement = document.getElementById('hint');
+        const correctSound = document.getElementById('correctSound');
+        const wrongSound = document.getElementById('wrongSound');
+        let triesRemaining = 3;
+        const triesLeftElement = document.getElementById('triesLeft');
+        const skipButton = document.getElementById('skipButton');
+        const playerNameElement = document.getElementById('playerName');
+        
+        const MAX_GAMES = 10;
+        const STORAGE_KEY = 'emojiNameGameData';
+        const achievementModal = document.getElementById('achievementModal');
+        const gamesRemainingElement = document.getElementById('gamesRemaining');
+        
+        let gameData = JSON.parse(localStorage.getItem(STORAGE_KEY) || JSON.stringify({
+            gamesPlayed: 0,
+            lastPlayDate: null
+        }));
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function showPuzzle() {
+            if (currentPuzzleIndex >= puzzles.length) {
+                currentPuzzleIndex = 0;
+                shuffleArray(puzzles);
+            }
+            emojiDisplay.textContent = puzzles[currentPuzzleIndex].emojis;
+            guessInput.value = '';
+            hintElement.textContent = '';
+            hintElement.style.display = 'none';
+            triesRemaining = 3;
+            updateTriesDisplay();
+            skipButton.disabled = true;
+        }
+
+        function updateTriesDisplay() {
+            triesLeftElement.textContent = `Tries remaining: ${triesRemaining}`;
+        }
+
+        function toggleHint() {
+            if (hintElement.style.display === 'none') {
+                hintElement.style.display = 'block';
+                const hint = "First letter: " + puzzles[currentPuzzleIndex].answer.charAt(0).toUpperCase();
+                hintElement.textContent = hint;
+                
+                logGameEvent('hintUsed', {
+                    hint,
+                    triesRemaining
+                });
+            } else {
+                hintElement.style.display = 'none';
+            }
+        }
+
+        function triggerConfetti() {
+            const duration = 3000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { 
+                startVelocity: 45,
+                spread: 360,
+                ticks: 100,
+                zIndex: 0,
+                colors: ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF']
+            };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 75 * (timeLeft / duration);
+                confetti({
+                    ...defaults,
+                    particleCount,
+                    origin: { x: randomInRange(0.2, 0.8), y: randomInRange(0.2, 0.4) }
+                });
+            }, 200);
+        }
+
+        function editName() {
+            const oldName = playerNameElement.textContent;
+            const nameInput = document.createElement('input');
+            nameInput.type = 'text';
+            nameInput.value = oldName;
+            nameInput.className = 'name-input';
+            nameInput.maxLength = 20;
+            
+            // Replace name display with input
+            playerNameElement.parentNode.replaceChild(nameInput, playerNameElement);
+            nameInput.focus();
+            
+            // Handle input completion
+            function saveName() {
+                const newName = nameInput.value.trim() || 'Player';
+                playerNameElement.textContent = newName;
+                nameInput.parentNode.replaceChild(playerNameElement, nameInput);
+                localStorage.setItem('emojiGamePlayerName', newName);
+                
+                logGameEvent('nameChange', {
+                    oldName,
+                    newName
+                });
+            }
+            
+            nameInput.addEventListener('blur', saveName);
+            nameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    saveName();
+                }
+            });
+        }
+        
+        // Load saved name on startup
+        window.addEventListener('load', () => {
+            const savedName = localStorage.getItem('emojiGamePlayerName');
+            if (savedName) {
+                playerNameElement.textContent = savedName;
+            }
+        });
+        
+        // Update score display to include player name
+        function updateScore() {
+            scoreElement.textContent = `${playerNameElement.textContent}'s Score: ${score}`;
+        }
+        
+        // Check and reset daily limit
+        function checkDailyReset() {
+            const today = new Date().toDateString();
+            if (gameData.lastPlayDate !== today) {
+                gameData = {
+                    gamesPlayed: 0,
+                    lastPlayDate: today
+                };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(gameData));
+            }
+        }
+
+        // Update games remaining display
+        function updateGamesRemaining() {
+            const remaining = MAX_GAMES - gameData.gamesPlayed;
+            gamesRemainingElement.textContent = `Games remaining today: ${remaining}`;
+        }
+
+        // Generate achievement image
+        function generateAchievement() {
+            const canvas = document.getElementById('achievementCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size
+            canvas.width = 800;
+            canvas.height = 400;
+            
+            // Background
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#6e8efb');
+            gradient.addColorStop(1, '#a777e3');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Text
+            ctx.fillStyle = '#fff';
+            ctx.textAlign = 'center';
+            ctx.font = 'bold 48px Segoe UI';
+            ctx.fillText('EmojiName Achievement', canvas.width/2, 100);
+            
+            ctx.font = '32px Segoe UI';
+            ctx.fillText(`${playerNameElement.textContent} scored ${score} points!`, canvas.width/2, 180);
+            
+            // Add some emojis
+            ctx.font = '64px Segoe UI';
+            ctx.fillText('🎮 🏆 ⭐', canvas.width/2, 280);
+            
+            // Add URL
+            ctx.font = '24px Segoe UI';
+            ctx.fillText('Play at victorfang.com/games', canvas.width/2, 350);
+        }
+
+        // Download achievement image
+        function downloadAchievement() {
+            const canvas = document.getElementById('achievementCanvas');
+            const image = canvas.toDataURL('image/jpeg');
+            const link = document.createElement('a');
+            link.download = 'emojiname-achievement.jpg';
+            link.href = image;
+            link.click();
+        }
+
+        // Share achievement
+        async function shareAchievement() {
+            const canvas = document.getElementById('achievementCanvas');
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg'));
+            const file = new File([blob], 'achievement.jpg', { type: 'image/jpeg' });
+            
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'My EmojiName Achievement',
+                        text: `I scored ${score} points in EmojiName! Play at victorfang.com/games`,
+                        files: [file]
+                    });
+                } catch (err) {
+                    console.log('Share failed:', err);
+                }
+            }
+        }
+
+        // Modify the checkGuess function to use updateScore
+        function checkGuess() {
+            if (gameData.gamesPlayed >= MAX_GAMES) {
+                hintElement.textContent = "You've reached today's limit. Come back tomorrow!";
+                hintElement.style.display = 'block';
+                return;
+            }
+            
+            const guess = guessInput.value.trim().toLowerCase();
+            const currentPuzzle = puzzles[currentPuzzleIndex];
+
+            logGameEvent('guess', {
+                guess,
+                correct: guess === currentPuzzle.answer,
+                answer: currentPuzzle.answer,
+                triesRemaining
+            });
+
+            if (guess === currentPuzzle.answer) {
+                gameData.gamesPlayed++;
+                gameData.lastPlayDate = new Date().toDateString();
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(gameData));
+                updateGamesRemaining();
+
+                if (gameData.gamesPlayed >= MAX_GAMES) {
+                    generateAchievement();
+                    achievementModal.style.display = 'flex';
+                }
+                
+                score++;
+                updateScore();  // Use the new update score function
+                Promise.all([
+                    correctSound.play(),
+                    triggerConfetti()
+                ]);
+                setTimeout(() => {
+                    currentPuzzleIndex++;
+                    showPuzzle();
+                }, 1500);
+            } else {
+                wrongSound.play();
+                triesRemaining--;
+                updateTriesDisplay();
+                
+                if (triesRemaining <= 0) {
+                    skipButton.disabled = false;
+                    hintElement.style.display = 'block';
+                    hintElement.textContent = "No more tries left! You can skip now.";
+                } else {
+                    hintElement.style.display = 'block';
+                    hintElement.textContent = "Try again!";
+                    setTimeout(() => {
+                        hintElement.style.display = 'none';
+                    }, 1500);
+                }
+            }
+        }
+
+        function skipPuzzle() {
+            if (triesRemaining <= 0) {
+                logGameEvent('skip', {
+                    answer: puzzles[currentPuzzleIndex].answer
+                });
+                
+                hintElement.style.display = 'block';
+                hintElement.textContent = `The answer was: ${puzzles[currentPuzzleIndex].answer}`;
+                setTimeout(() => {
+                    currentPuzzleIndex++;
+                    showPuzzle();
+                }, 2000);
+            }
+        }
+
+        guessInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkGuess();
+            }
+        });
+
+        // Initialize game
+        shuffleArray(puzzles);
+        showPuzzle();
+        updateScore();
+        checkDailyReset();
+        updateGamesRemaining();
+
+        // Logging functions
+        function logGameEvent(eventType, details) {
+            const timestamp = new Date().toISOString();
+            const event = {
+                timestamp,
+                playerName: playerNameElement.textContent,
+                eventType,
+                details,
+                score,
+                puzzleIndex: currentPuzzleIndex,
+                currentPuzzle: puzzles[currentPuzzleIndex].emojis
+            };
+
+            // Get existing logs or initialize new array
+            let gameLogs = JSON.parse(localStorage.getItem('emojiGameLogs') || '[]');
+            gameLogs.push(event);
+            
+            // Keep only last 1000 events to manage storage
+            if (gameLogs.length > 1000) {
+                gameLogs = gameLogs.slice(-1000);
+            }
+            
+            localStorage.setItem('emojiGameLogs', JSON.stringify(gameLogs));
+            
+            // Optional: Send to server if you have one
+            // sendLogToServer(event);
+        }
+
+        // Add function to view logs (for debugging or analysis)
+        function viewGameLogs() {
+            const logs = JSON.parse(localStorage.getItem('emojiGameLogs') || '[]');
+            console.table(logs);
+            return logs;
+        }
+
+        // Add function to clear logs if needed
+        function clearGameLogs() {
+            localStorage.removeItem('emojiGameLogs');
+            console.log('Game logs cleared');
+        }
+
+        // Log game start
+        logGameEvent('gameStart', {
+            browserInfo: navigator.userAgent,
+            screenSize: `${window.innerWidth}x${window.innerHeight}`
+        });
+
+        // Add window unload logging
+        window.addEventListener('beforeunload', () => {
+            logGameEvent('gameEnd', {
+                finalScore: score
+            });
+        });
+    </script>
+</body>
+</html> 
