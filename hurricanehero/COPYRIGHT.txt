@@ -1,0 +1,21 @@
+Hurricane Hero.  Author: Victor Fang, 2026
+Copyright © 2026 Victor Fang. All rights reserved in original contributions.
+
+This notice applies only to protectable Hurricane Hero code, artwork, design,
+writing and other contributions in which Victor Fang holds rights. No general
+license is granted to extract, redistribute, resell or reuse those contributions
+in another product without permission, except as permitted by applicable law or
+separately applicable platform terms. Playing the distributed game is permitted.
+
+Third-party libraries and data remain subject to their own licenses and notices
+in dist/assets/licenses and the corresponding native bundle. No ownership is
+claimed over those works, geographic facts, historical observations, real-world
+landmarks or third-party trademarks. assets/data.js includes third-party data;
+its author header identifies this project's packaging only.
+
+Avatar generation provenance is recorded in AVATAR-ART.md. Adding a copyright
+notice, maker's mark or metadata does not itself establish copyright eligibility
+for AI-generated material. User-supplied audio retains any underlying rights;
+its embedded Hurricane Hero attribution does not identify its performer or composer.
+
+Permissions contact: https://VictorFang.com
