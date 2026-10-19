@@ -19,3 +19,5 @@ for AI-generated material. User-supplied audio retains any underlying rights;
 its embedded Hurricane Hero attribution does not identify its performer or composer.
 
 Permissions contact: https://VictorFang.com
+
+Social preview update (2026-10-19): the existing Hurricane Hero artwork was edited with OpenAI image generation to display the updated game descriptor. Original artwork attribution and third-party notices remain applicable.

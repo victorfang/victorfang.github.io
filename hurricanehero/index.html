@@ -1,23 +1,26 @@
 <!doctype html>
+<!-- Hurricane Hero.  Author: Victor Fang, 2026 -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#071d32">
-  <title>Hurricane Hero: 3D Storm Sim — 3D Physics &amp; Strategy Game</title>
-  <meta name="description" content="Be the storm in Hurricane Hero, a 3D weather strategy game. Dodge six missile classes, master 20 missions, and explore 10 historic storms. iPhone first; Android and Steam coming soon.">
+  <title>Hurricane Hero — 3D Storm Simulation Strategy Game</title>
+  <meta name="description" content="Hurricane Hero is a 3D Storm Simulation Strategy Game. Dodge six missile classes, master 20 missions, and explore 10 historic storms. iPhone first; Android and Steam coming soon.">
   <link rel="canonical" href="https://victorfang.com/hurricanehero/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://victorfang.com/hurricanehero/">
-  <meta property="og:title" content="Hurricane Hero: 3D Storm Sim">
-  <meta property="og:description" content="Little storm. Big adventure. 🌍 Grow, dodge, and discover real hurricane history in a 3D physics & strategy game.">
-  <meta property="og:image" content="https://victorfang.com/hurricanehero/social-preview.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:title" content="Hurricane Hero">
+  <meta property="og:description" content="3D Storm Simulation Strategy Game. 🌍 Grow your hurricane, dodge weather missiles, and discover real storm history.">
+  <meta property="og:image" content="https://victorfang.com/hurricanehero/social-preview.png?v=803afec2a825">
+  <meta property="og:image:width" content="1731">
+  <meta property="og:image:height" content="909">
+  <meta property="og:image:alt" content="Hurricane Hero — 3D Storm Simulation Strategy Game">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Hurricane Hero: 3D Storm Sim">
-  <meta name="twitter:description" content="Be the storm. Grow with the weather. Give a friend a score to beat.">
-  <meta name="twitter:image" content="https://victorfang.com/hurricanehero/social-preview.png">
+  <meta name="twitter:title" content="Hurricane Hero">
+  <meta name="twitter:description" content="3D Storm Simulation Strategy Game. Grow, dodge, learn, and challenge a friend.">
+  <meta name="twitter:image" content="https://victorfang.com/hurricanehero/social-preview.png?v=803afec2a825">
+  <meta name="twitter:image:alt" content="Hurricane Hero — 3D Storm Simulation Strategy Game">
   <link rel="icon" type="image/png" href="data:image/png;base64,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">
   <!-- Add the real apps.apple.com URL here when the iOS listing is live. -->
   <script id="site-config" type="application/json">{"appStoreUrl":"","marketingUrl":"https://victorfang.com/hurricanehero/"}</script>
@@ -39,6 +42,7 @@
     @media(max-width:430px){.container{width:calc(100% - 34px)}.hero-art{height:365px}.planet{width:420px}.floating{padding:9px 11px;gap:7px;border-radius:12px}.floating strong{font-size:10px}.floating small{font-size:7px}.floating .emoji{font-size:21px}.float-warm{left:-1%;top:11%}.float-dodge{right:-2%;top:43%}.float-score{left:5%;bottom:7%}.hero h1{font-size:56px}.hero-description{max-width:325px}.button{font-size:12px;padding:13px 19px;min-height:49px}.text-link{font-size:11px}.stat,.stat:first-child,.stat:last-child{padding-left:12px;gap:9px}.feature-list{grid-template-columns:1fr;gap:18px}.feature{grid-template-columns:33px 1fr;gap:10px}.feature p{max-width:100%;font-size:12px}.feature h3{font-size:14px}.game-visual{min-height:525px}.sticker-1{left:-2px;top:19%;font-size:10px;padding:11px 12px}.sticker-2{right:-1px;bottom:19%;font-size:10px;padding:11px 12px}.storm-cards{grid-template-columns:1fr}.storm-card{min-height:0;display:grid;grid-template-columns:1fr 76px;column-gap:15px;padding:23px}.storm-year{grid-column:1;grid-row:1}.storm-symbol{grid-column:2;grid-row:1/5;margin:0;align-self:center;width:65px;height:65px}.storm-card h3{grid-column:1;grid-row:2;margin-top:14px}.storm-type{grid-column:1;grid-row:3;font-size:9px}.storm-card p{grid-column:1;grid-row:4;font-size:12px;margin-top:13px;max-width:100%}.history-metrics{gap:17px;font-size:10px}.history-metrics strong{font-size:16px}.platform-grid{grid-template-columns:1fr;max-width:360px;gap:12px}.platform-card{display:grid;grid-template-columns:45px 1fr auto;text-align:left;gap:4px 12px;padding:20px}.platform-icon{grid-column:1;grid-row:1/3;margin:0;font-size:31px}.platform-card h3{grid-column:2;grid-row:1;font-size:15px;margin:0}.platform-card p{grid-column:2;grid-row:2;margin:1px 0 0;font-size:10px}.platform-state{grid-column:3;grid-row:1/3;white-space:nowrap;justify-self:end}.store-download{grid-column:1/4;text-align:center;margin-top:12px}.learning .section-heading{font-size:35px}.learning-tags{gap:6px}.learning-tags span{font-size:9px}.social-action{margin-left:0;width:100%}.share-button{width:100%}.share-fallback{max-width:none}.social-section{padding-block:47px}.faq{padding-bottom:48px}.faq summary{font-size:12px}.footer-links{gap:19px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
   </style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoGame", "name": "Hurricane Hero", "description": "3D Storm Simulation Strategy Game. Steer and grow your hurricane, dodge fictional weather missiles, and explore recorded storm history.", "genre": ["Strategy", "Simulation"], "url": "https://victorfang.com/hurricanehero/", "image": "https://victorfang.com/hurricanehero/social-preview.png?v=803afec2a825"}</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -52,8 +56,8 @@
     <div class="hero-copy">
       <p class="eyebrow"><span class="dot" aria-hidden="true"></span> A little storm. A whole world to explore.</p>
       <h1 id="hero-title">Be the storm.<span>Become the hero.</span></h1>
-      <p class="product-title">Hurricane Hero: 3D Storm Sim</p>
-      <p class="subtitle">3D Physics &amp; Strategy Game</p>
+      <p class="product-title">Hurricane Hero</p>
+      <p class="subtitle">3D Storm Simulation Strategy Game</p>
       <p class="hero-description">Grow with the weather. Dodge the missiles. Chase your next high score in a globe-spanning adventure inspired by real hurricane history. 🌀</p>
       <div class="actions"><a class="button primary" id="hero-download" href="#platforms"><span id="hero-download-text">Find your platform</span><span aria-hidden="true">↗</span></a><a class="text-link" href="#gameplay">Take a closer look <span aria-hidden="true">↓</span></a></div>
       <p class="platform-note">🍎 iPhone first <span class="sep">/</span> 🤖 Android &amp; 🎮 Steam coming soon</p>
@@ -112,7 +116,7 @@
   </div>
 </section>
 <section class="social-section" aria-labelledby="social-title"><div class="container social-inner"><span class="social-icon" aria-hidden="true">💬</span><div class="social-copy"><h2 id="social-title">Give a friend a score to beat.</h2><p>Create a score card or share the same seeded storm challenge from the game. Your storm, your strategy, your friendly rivalry. Who will find the better route?</p></div><div class="social-action"><button class="button share-button" id="share-page" type="button">Share the adventure <span aria-hidden="true">↗</span></button><div class="share-status" id="share-status" role="status" aria-live="polite"></div><div class="share-fallback" id="share-fallback" hidden><label for="share-url">Copy the game page link</label><input id="share-url" value="https://victorfang.com/hurricanehero/" readonly aria-label="Game page URL"></div></div></div></section>
-<section class="platforms" id="platforms" aria-labelledby="platforms-title"><div class="container"><p class="eyebrow">🌀 Your next adventure has an eye.</p><h2 class="section-heading" id="platforms-title">A little storm.<br>A big adventure.</h2><p class="platform-intro">Hurricane Hero: 3D Storm Sim<br>3D Physics &amp; Strategy Game</p><div class="platform-grid">
+<section class="platforms" id="platforms" aria-labelledby="platforms-title"><div class="container"><p class="eyebrow">🌀 Your next adventure has an eye.</p><h2 class="section-heading" id="platforms-title">A little storm.<br>A big adventure.</h2><p class="platform-intro">Hurricane Hero<br>3D Storm Simulation Strategy Game</p><div class="platform-grid">
   <article class="platform-card apple"><span class="platform-icon" aria-hidden="true">🍎</span><h3>Apple App Store</h3><p>For iPhone</p><span class="platform-state" id="ios-state">Coming soon</span><a class="store-download" id="ios-download" href="#platforms" hidden>Download for iPhone ↗</a></article>
   <article class="platform-card"><span class="platform-icon" aria-hidden="true">🤖</span><h3>Android</h3><p>More ways to play</p><span class="platform-state">Coming soon</span></article>
   <article class="platform-card"><span class="platform-icon" aria-hidden="true">🎮</span><h3>Steam</h3><p>Your storm. A bigger screen.</p><span class="platform-state">Coming soon</span></article>
@@ -168,7 +172,7 @@
     const url = config.marketingUrl;
     const status = document.getElementById('share-status');
     if (navigator.share) {
-      try { await navigator.share({title: 'Hurricane Hero: 3D Storm Sim', text: 'Be the storm. Grow, dodge, and discover real hurricane history. 🌀', url}); status.textContent = 'Adventure shared!'; return; }
+      try { await navigator.share({title: 'Hurricane Hero', text: '3D Storm Simulation Strategy Game. Grow, dodge, and discover real hurricane history. 🌀', url}); status.textContent = 'Adventure shared!'; return; }
       catch (error) { if (error.name === 'AbortError') { status.textContent = ''; return; } }
     }
     try { await navigator.clipboard.writeText(url); status.textContent = 'Link copied. Send it to a friend!'; }
