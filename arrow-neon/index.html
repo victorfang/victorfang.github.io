@@ -1,0 +1,154 @@
+<!doctype html>
+<!-- Copyright (c) Victor Fang 2026. All rights reserved. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101017">
+  <title>Arrow Neon — Save the light. Find your flow.</title>
+  <meta name="description" content="A little light. A little logic. Find your flow in Arrow Neon: 400 relaxing arrow puzzles across Neon Grid and Japan. Play in your browser.">
+  <link rel="canonical" href="https://victorfang.com/arrow-neon/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Arrow Neon — Save the light. Find your flow.">
+  <meta property="og:description" content="Tokyo, 2041. Tiny Neons are trapped. Be their hero in 400 glowing arrow puzzles, at your own pace.">
+  <meta property="og:url" content="https://victorfang.com/arrow-neon/">
+  <meta property="og:image" content="https://victorfang.com/arrow-neon/assets/social-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Arrow Neon: Save the light. Find your flow. Neon Keepers in Tokyo.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Arrow Neon — Save the light. Find your flow.">
+  <meta name="twitter:description" content="400 glowing arrow puzzles. Two journeys. One little rescue at a time.">
+  <meta name="twitter:image" content="https://victorfang.com/arrow-neon/assets/social-preview.jpg">
+  <link rel="icon" href="assets/icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icon.png">
+  <link rel="preload" href="assets/tokyo.webp" as="image" fetchpriority="high">
+  <link rel="stylesheet" href="styles.css">
+  <script src="page.js" defer></script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"VideoGame","name":"Arrow Neon","description":"A relaxing arrow logic puzzle with 400 levels across Neon Grid and Japan.","url":"https://victorfang.com/arrow-neon/","image":"https://victorfang.com/arrow-neon/assets/social-preview.jpg","genre":["Puzzle","Casual"],"gamePlatform":"Web browser","playMode":"SinglePlayer","author":{"@type":"Person","name":"Victor Fang","url":"https://victorfang.com/"}}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Arrow Neon home"><img src="assets/logo.svg" width="204" height="48" alt="Arrow Neon"></a>
+    <nav aria-label="Main navigation">
+      <a href="#how-to-play">How to play</a>
+      <a href="#journeys">The journeys</a>
+      <a href="#story">Our story</a>
+    </nav>
+    <a class="button button-small" href="https://arrrow-neon.vicfcs.chatgpt.site/">Play now <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-art" aria-hidden="true"></div>
+      <div class="hero-content wrap">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="status-dot"></span> A small escape. A brighter world.</p>
+          <h1 id="hero-title">Save the light.<br><span>Find your flow.</span></h1>
+          <p class="hero-description">A little light. A little logic. Untangle glowing arrows and bring Tokyo back to life, one thoughtful move at a time.</p>
+          <div class="hero-actions">
+            <a class="button" href="https://arrrow-neon.vicfcs.chatgpt.site/">Play in your browser <span aria-hidden="true">↗</span></a>
+            <a class="text-link" href="#how-to-play">Try a little puzzle <span aria-hidden="true">↓</span></a>
+          </div>
+          <p class="platform-note">No download. No account. Just a little glow.<br><span>iPhone & iPad coming soon.</span></p>
+        </div>
+        <figure class="hero-game">
+          <div class="phone"><img src="assets/gameplay.webp" width="600" height="1304" alt="Actual Arrow Neon gameplay: a board of warm, glowing arrows ready to untangle" fetchpriority="high"><div class="phone-notch" aria-hidden="true"></div></div>
+          <figcaption><span class="tiny-star" aria-hidden="true">✦</span> Small taps. Satisfying little rescues.</figcaption>
+        </figure>
+      </div>
+      <div class="hero-bottom wrap"><span>AN ARROW PUZZLE WITH A WARM NEON HEART</span><a href="#how-to-play" aria-label="Explore Arrow Neon">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></a></div>
+    </section>
+
+    <div class="facts wrap" aria-label="Game features">
+      <p><strong>400</strong><span>thoughtfully tangled puzzles</span></p>
+      <p><strong>2 journeys</strong><span>Neon Grid & Japan</span></p>
+      <p><strong>Your pace</strong><span>no countdown, no rush</span></p>
+      <p><strong>Offline play</strong><span>once the game is loaded</span></p>
+    </div>
+
+    <section class="how-section section wrap" id="how-to-play" aria-labelledby="how-title">
+      <div class="section-copy">
+        <p class="eyebrow">01 / A little room for light</p>
+        <h2 id="how-title">One clear lane.<br>One little rescue.</h2>
+        <p>Every arrow needs a way out. Follow its tip, find an open lane, and tap to send it home. Each rescue makes space for the next.</p>
+        <ol class="steps">
+          <li><span>01</span><div><strong>Look for an opening.</strong><p>An arrow can leave when nothing is in its way.</p></div></li>
+          <li><span>02</span><div><strong>Let a little light go.</strong><p>Tap it. Watch a new possibility appear.</p></div></li>
+          <li><span>03</span><div><strong>Find your rhythm.</strong><p>Clear the board, one thoughtful move at a time.</p></div></li>
+        </ol>
+      </div>
+      <div class="demo">
+        <div class="demo-top"><span class="eyebrow">YOUR FIRST FOUR RESCUES</span><button type="button" id="reset-demo" class="quiet-button">Reset <span aria-hidden="true">↻</span></button></div>
+        <svg id="demo-board" viewBox="0 0 420 380" role="group" aria-label="Four-arrow practice puzzle. Tap an arrow with a clear exit lane.">
+          <defs>
+            <pattern id="dots" x="0" y="0" width="44" height="44" patternUnits="userSpaceOnUse"><circle cx="12" cy="12" r="1.2" fill="#45414a"/></pattern>
+            <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="6"/></filter>
+          </defs>
+          <rect x="16" y="16" width="388" height="348" fill="url(#dots)"/>
+        </svg>
+        <p id="demo-status" class="demo-status" role="status" aria-live="polite">Find a clear lane. Tap an arrow to begin.</p>
+        <p class="demo-note">A tiny practice puzzle. No lives needed.</p>
+        <noscript><p>Enable JavaScript to try this practice puzzle, or <a href="https://arrrow-neon.vicfcs.chatgpt.site/">open the full game</a>.</p></noscript>
+      </div>
+    </section>
+
+    <section class="journey-section section" id="journeys" aria-labelledby="journey-title">
+      <div class="wrap">
+        <div class="section-heading"><div><p class="eyebrow">02 / Follow a different path</p><h2 id="journey-title">Take the scenic route.</h2></div><p>From satisfying grids to a little taste of Japan.<br>Find a puzzle that feels like you.</p></div>
+        <div class="journey-grid">
+          <article class="journey-card grid-card">
+            <div class="journey-label"><span>JOURNEY 01</span><span>200 LEVELS</span></div>
+            <img src="assets/neon-grid.webp" width="900" height="900" alt="Actual Neon Grid puzzle with densely interwoven amber and rose arrows" loading="lazy">
+            <div class="journey-caption"><div><h3>Neon Grid</h3><p>Find the order in the beautiful tangle.</p></div><span aria-hidden="true">↗</span></div>
+          </article>
+          <article class="journey-card japan-card">
+            <div class="journey-label"><span>JOURNEY 02</span><span>200 LEVELS</span></div>
+            <img src="assets/japan.webp" width="900" height="900" alt="Actual Japan puzzle: glowing arrows form a sushi silhouette" loading="lazy">
+            <div class="journey-caption"><div><h3>Japan</h3><p>Sushi, ramen, oni & koi. A world of little discoveries.</p></div><span aria-hidden="true">✦</span></div>
+          </article>
+        </div>
+        <p class="journey-footnote">Want a little more? Explore advanced practice with free retries and practice hints.</p>
+      </div>
+    </section>
+
+    <section class="mood-section section wrap" aria-labelledby="mood-title">
+      <div class="mood-visual"><img id="mood-image" src="assets/dark-mode.webp" width="640" height="800" alt="Actual Arrow Neon gameplay with warm arrows on a dark canvas" loading="lazy"><span class="image-label">ACTUAL GAMEPLAY</span></div>
+      <div class="section-copy">
+        <p class="eyebrow">03 / Make it your glow</p>
+        <h2 id="mood-title">A softer kind<br>of screen time.</h2>
+        <p>Warm colors. Breathing light. Gentle sounds. Settle into a moment that moves at your speed.</p>
+        <div class="mood-options" role="group" aria-label="Preview game appearance">
+          <button class="mood-button" type="button" data-mood="dark" aria-pressed="true"><span class="swatch swatch-dark"></span>Night glow</button>
+          <button class="mood-button" type="button" data-mood="light" aria-pressed="false"><span class="swatch swatch-light"></span>Daylight</button>
+        </div>
+        <p class="small-copy" id="mood-caption">A quiet, dark canvas for your little lights.</p>
+        <ul class="mood-features"><li>Choose your palette & breathing rhythm</li><li>Gentle sound & optional haptics</li><li>12 optional Neon Keeper portraits</li><li>Puzzles to take with you, even offline</li></ul>
+      </div>
+    </section>
+
+    <section class="story-section" id="story" aria-labelledby="story-title">
+      <img src="assets/tokyo.webp" width="1672" height="941" alt="The fictional Neon Keepers guiding little glowing arrow creatures through a futuristic Tokyo" loading="lazy">
+      <div class="story-shade"></div>
+      <div class="story-copy wrap"><p class="eyebrow">TOKYO, 2041</p><h2 id="story-title">The city is fading.<br>You're its way home.</h2><p>A blackout has trapped the Neons: tiny arrow creatures carrying Tokyo's last light. You're a Neon Keeper. With every arrow you free, the city glows again.</p><p class="story-signoff">Big hope. Small acts of light.</p><span class="art-note">Neon Keepers story artwork · Arrow Neon is an arrow logic puzzle.</span></div>
+    </section>
+
+    <section class="faq-section section wrap" aria-labelledby="faq-title">
+      <div><p class="eyebrow">A FEW LITTLE ANSWERS</p><h2 id="faq-title">Before you glow.</h2></div>
+      <div class="faq-list">
+        <details><summary>How can I play?</summary><p>Play Arrow Neon in your browser on a phone, tablet, or computer. No download or account is required. An iPhone and iPad release is coming soon; the browser version is available now.</p></details>
+        <details><summary>Is there a time limit?</summary><p>There is no countdown. The clock records your active play time and personal best, but time never affects your stars or lives. Take a breath and find your next move.</p></details>
+        <details><summary>Can I play offline?</summary><p>Yes. Open the browser game online once and let it finish loading. Its core puzzles, bundled artwork, and sounds are saved for offline play. External links, ads, and Apple purchases require a connection.</p></details>
+        <details><summary>Are there ads or in-app purchases?</summary><p>The browser version uses clearly labeled ad and purchase simulations with no real charges. The native app includes ads and optional life packs and Remove Ads purchases. Remove Ads hides banners and interstitials; rewarded videos remain optional. Main-game hints use points, while advanced-practice hints and retries are free.</p></details>
+        <details><summary>Where is my progress saved?</summary><p>Progress and settings are stored on your device. Profiles are optional. There is no account or cloud sync, and clearing browser or app data can remove your progress.</p></details>
+        <details><summary>How do I get help?</summary><p>Email <a href="mailto:fangventures.hq@gmail.com?subject=Arrow%20Neon%20support">fangventures.hq@gmail.com</a> with “Arrow Neon” and your device or browser version. We'd love to help you find your way.</p></details>
+      </div>
+    </section>
+
+    <section class="final-cta section" aria-labelledby="cta-title"><div class="wrap"><img src="assets/mark.svg" width="74" height="74" alt="" loading="lazy"><p class="eyebrow">TOKYO NEEDS A LITTLE LIGHT. SO DO WE ALL.</p><h2 id="cta-title">Bring the light home.</h2><a class="button" href="https://arrrow-neon.vicfcs.chatgpt.site/">Find your first clear lane <span aria-hidden="true">↗</span></a><p class="platform-note">Play in your browser · iPhone & iPad coming soon</p></div></section>
+  </main>
+  <footer class="site-footer wrap"><a class="footer-brand" href="#"><img src="assets/logo.svg" width="170" height="40" alt="Arrow Neon"></a><p>Made with a little light by <a href="https://victorfang.com/">Victor Fang</a>.<br>© 2026 Victor Fang. All rights reserved.</p><div><a href="https://victorfang.com/games/">More games</a><a href="mailto:fangventures.hq@gmail.com?subject=Arrow%20Neon%20support">Get in touch <span aria-hidden="true">↗</span></a></div></footer>
+</body>
+</html>
