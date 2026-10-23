@@ -14,3 +14,4 @@
 @media(max-width:600px){.site-header nav{gap:20px}.site-header nav a{font-size:.75rem}.hero-assurances{font-size:.72rem;gap:12px}.steps p,.demo-intro,.demo-message,.destination-card p,.comfort-list p,details p{font-size:.9rem}.steps h3{font-size:.95rem}.demo-message{min-height:4.5em}.demo-footnote{font-size:.65rem;line-height:1.7}.platform-status{font-size:.78rem}.download-content>.availability-note{font-size:.75rem!important}.site-footer p,.copyright{font-size:.65rem}.destination-note span{font-size:.7rem}.text-link,.postcards-copy .text-link{font-size:.82rem}}
 @media(max-width:350px){.site-header nav{gap:13px}.site-header nav a{font-size:.7rem}.hero-assurances{font-size:.66rem;gap:10px}}
 @media(max-width:600px){.hero h1{font-size:clamp(2rem,11vw,2.7rem)}}
+.site-footer{flex-wrap:wrap}.footer-links{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap}.footer-links a{display:inline-flex;align-items:center;min-height:44px;font-size:.75rem}
