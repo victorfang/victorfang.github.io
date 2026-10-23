@@ -19,7 +19,7 @@ for (const [platform, href] of Object.entries(storeLinks)) {
   } catch { /* Keep the status card if a configured URL is invalid. */ }
 }
 if (Object.values(storeLinks).every(Boolean)) {
-  document.querySelector(".availability-note").textContent = "Other platforms are coming soon.";
+  document.querySelector(".availability-note").textContent = "More platforms coming soon.";
 }
 
 const textSizeButton = document.querySelector(".text-size");
@@ -58,7 +58,7 @@ const undoButton = document.getElementById("demo-undo");
 const clueButton = document.getElementById("demo-clue");
 function renderDraft() {
   tileButtons.forEach((button, index) => { button.disabled = selected.includes(index); });
-  draft.textContent = selected.length ? selected.map(index => tileButtons[index].dataset.letter).join(" ") : "Tap the letters above";
+  draft.textContent = selected.length ? selected.map(index => tileButtons[index].dataset.letter).join(" ") : "Tap letters";
   findButton.disabled = selected.length < 3;
   undoButton.disabled = selected.length === 0;
 }
@@ -74,7 +74,7 @@ undoButton.addEventListener("click", () => {
 findButton.addEventListener("click", () => {
   const word = selected.map(index => tileButtons[index].dataset.letter).join("");
   if (found.has(word)) {
-    message.textContent = `You already found ${word}. Let’s try another.`;
+    message.textContent = `${word} is already found. Try another.`;
   } else if (answers.some(answer => answer.word === word)) {
     found.add(word);
     clueLevel = 0;
@@ -83,12 +83,12 @@ findButton.addEventListener("click", () => {
     row.classList.add("found");
     row.setAttribute("aria-label", `${word}, found`);
     document.getElementById("demo-progress").textContent = `${found.size} of 4 words found`;
-    message.textContent = found.size === 4 ? "Lovely work! All four words found. Your first little escape, complete." : `${word}—lovely! ${found.size} of 4 words found. Try another, or choose Clue.`;
+    message.textContent = found.size === 4 ? "Well done! All four words found." : `${word}—lovely! ${found.size} of 4 found.`;
     clueButton.disabled = found.size === 4;
   } else if (bonusWords.has(word)) {
-    message.textContent = `${word} is a lovely bonus word! The four puzzle words are still waiting.`;
+    message.textContent = `${word}—a bonus word! Keep going.`;
   } else {
-    message.textContent = "That’s not one of these words. Take your time, or try a clue.";
+    message.textContent = "Try another word, or choose Clue.";
   }
   selected = [];
   renderDraft();
@@ -98,7 +98,7 @@ clueButton.addEventListener("click", () => {
   const answer = answers.find(answer => !found.has(answer.word));
   if (!answer) return;
   clueLevel += 1;
-  message.textContent = clueLevel === 1 ? `Clue: ${answer.clue} ${answer.word.length} letters, starting with ${answer.word[0]}.` : `A little help: try ${answer.word}. Tap its letters, then Find.`;
+  message.textContent = clueLevel === 1 ? `Clue: ${answer.clue} ${answer.word.length} letters, starting with ${answer.word[0]}.` : `Try ${answer.word}. Tap its letters, then Find.`;
 });
 document.getElementById("demo-reset").addEventListener("click", () => {
   selected = [];
@@ -110,7 +110,7 @@ document.getElementById("demo-reset").addEventListener("click", () => {
     Array.from(row.children).forEach(cell => { cell.textContent = "·"; });
   });
   document.getElementById("demo-progress").textContent = "0 of 4 words found";
-  message.textContent = "First clue: enjoy a book.";
+  message.textContent = "Clue: enjoy a book.";
   clueButton.disabled = false;
   renderDraft();
   tileButtons[0].focus({ preventScroll: true });
