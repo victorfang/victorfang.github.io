@@ -21,3 +21,16 @@
 .hero-brand .hero-image{height:auto;aspect-ratio:1;object-fit:contain}.hero-brand .postcard-city{font-size:1.2rem}.hero-brand{margin-bottom:0}
 .download-icon{width:160px;height:160px;border-radius:28px}
 @media(max-width:600px){.site-header .brand img{width:48px;height:48px;border-radius:9px}.hero-brand{margin-inline:0}.hero-brand .postcard-city{font-size:1.08rem}.download-icon{width:128px;height:128px;border-radius:24px}}
+
+/* Copyright (c) Victor Fang, 2026. Research context and accessible source links. */
+.research-section{background:#eeefe5;border-bottom:1px solid var(--line)}
+.research-intro{max-width:760px}.research-intro>p:last-child{font-size:1rem;line-height:1.8;margin-top:24px}
+.research-context{font-size:1rem;margin-top:34px;color:var(--green)}
+.research-stats{list-style:none;padding:0;margin:20px 0 28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.research-stats li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:26px;display:flex;flex-direction:column;align-items:flex-start}
+.research-stats strong{font:400 3.2rem/1.1 Georgia,serif;color:var(--green)}.research-stats p{font-size:1.05rem;line-height:1.5;margin-top:14px;max-width:240px}.research-stats span{font-size:.8rem;color:var(--muted);margin-top:auto;padding-top:18px}
+.research-note{font-size:.9rem;line-height:1.8;max-width:920px}.research-sources{display:flex;flex-wrap:wrap;align-items:center;gap:6px 24px;margin-top:22px;font-size:.85rem;line-height:1.6}.research-sources>span{font-weight:650}.research-sources a{display:inline-flex;align-items:center;min-height:44px;overflow-wrap:anywhere}
+@media(max-width:850px){.research-stats{gap:14px}.research-stats li{padding:20px}.research-stats p{font-size:1rem}}
+@media(max-width:600px){.research-stats{grid-template-columns:1fr;gap:14px}.research-stats li{display:grid;grid-template-columns:100px minmax(0,1fr);gap:0 16px;align-items:center;padding:20px}.research-stats strong{font-size:2.7rem;grid-row:1/3}.research-stats p{margin:0;max-width:none}.research-stats span{margin:0;padding-top:6px}.research-intro>p:last-child,.research-context,.research-note{font-size:.95rem}.research-sources{display:grid;font-size:.9rem;gap:8px}.research-sources a{padding-block:4px}}
+
+.footer-links{flex-wrap:wrap;justify-content:center}
