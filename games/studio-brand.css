@@ -1,0 +1,24 @@
+/* Copyright (c) Victor Fang, 2026. Author: Victor Fang. */
+/* Shared Fang Ventures branding for the game and support pages. */
+.fv-studio-bar,.fv-studio-footer{box-sizing:border-box;background:#0b1018;color:#f5f4ee;font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:normal;text-align:left}
+.fv-studio-bar *,.fv-studio-footer *{box-sizing:border-box}
+.fv-studio-shell{width:min(1280px,calc(100% - 48px));margin-inline:auto}
+.fv-studio-bar{border-bottom:1px solid #ffffff20}
+.fv-studio-bar .fv-studio-shell{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:80px;padding-block:16px}
+.fv-studio-bar a,.fv-studio-footer a{color:inherit;text-decoration:none;text-underline-offset:4px}
+.fv-studio-brand{display:flex;align-items:center;gap:12px;min-width:0;font-size:19px;font-weight:700;line-height:1.2;letter-spacing:-.4px}
+.fv-studio-mark{display:grid;place-items:center;flex:none;width:42px;height:42px;border-radius:12px;background:#c5f570;color:#0b1018;font-size:18px;font-weight:800;letter-spacing:-1px}
+.fv-studio-label{display:block;margin-top:5px;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:#b6c0cd}
+.fv-back-link{display:inline-flex;align-items:center;min-height:44px;flex:none;font-size:14px;color:#c5f570!important}
+.fv-studio-footer{margin:0;border-top:1px solid #ffffff20;padding:32px 0}
+.fv-studio-footer .fv-studio-shell{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.fv-studio-contact{display:flex;flex-direction:column;gap:7px;min-width:0}
+.fv-studio-contact strong{font-size:16px;font-weight:650;color:#f5f4ee;line-height:1.5;letter-spacing:normal}
+.fv-studio-contact>span,.fv-studio-contact address{color:#b6c0cd;font-size:14px;font-style:normal;line-height:1.7;margin:0}
+.fv-studio-contact a{overflow-wrap:anywhere}
+.fv-studio-links{display:flex;justify-content:flex-end;align-items:center;flex-wrap:wrap;gap:2px 20px;max-width:580px}
+.fv-studio-links a{display:inline-flex;align-items:center;min-height:44px;font-size:14px;color:#b6c0cd}
+.fv-studio-bar a:hover,.fv-studio-footer a:hover{color:#c5f570;text-decoration:underline}
+.fv-studio-bar a:focus-visible,.fv-studio-footer a:focus-visible{outline:3px solid #c5f570;outline-offset:5px;border-radius:4px}
+@media(max-width:700px){.fv-studio-footer .fv-studio-shell{flex-direction:column;align-items:flex-start}.fv-studio-links{justify-content:flex-start;gap:2px 22px}}
+@media(max-width:400px){.fv-studio-shell{width:calc(100% - 32px)}.fv-studio-bar .fv-studio-shell{gap:12px;min-height:76px}.fv-studio-brand{font-size:16px;gap:9px}.fv-studio-mark{width:36px;height:36px;font-size:16px;border-radius:10px}.fv-studio-label{font-size:9px;letter-spacing:1px}.fv-back-link{font-size:12px}.fv-studio-contact>span,.fv-studio-contact address{font-size:13px}}
