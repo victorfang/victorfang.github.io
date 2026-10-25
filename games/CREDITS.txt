@@ -1,0 +1,5 @@
+Copyright (c) Victor Fang, 2026. Author: Victor Fang.
+
+hurricane-world.svg reuses the existing Hurricane Hero illustration from /hurricanehero/ without visual changes.
+studio-preview.jpg is a screenshot of the Victor Fang Games portfolio.
+The portfolio references the other original game images directly from their existing game pages.

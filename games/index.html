@@ -1,239 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
+<!-- Copyright (c) Victor Fang, 2026. Author: Victor Fang. -->
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Victor Fang's Game Collection</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background: linear-gradient(
-                135deg,
-                #a8edea 0%,
-                #fed6e3 50%,
-                #a8edea 100%
-            );
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            min-height: 100vh;
-        }
-        
-        @keyframes gradientBG {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            font-size: 2.5em;
-            margin: 2rem 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            padding: 20px;
-        }
-        .game-card {
-            aspect-ratio: 1;
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-            --can-play: 1;
-        }
-        .game-card::after {
-            content: '';
-            opacity: 0;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-        .game-card:hover::after {
-            animation: none;
-            animation: var(--can-play) confetti 1s ease-in-out 2s;
-        }
-        .game-card:hover::after {
-            --can-play: 1;
-            animation: var(--can-play) confetti 1s ease-in-out 2s forwards;
-            animation-play-state: running;
-        }
-        .game-card::after {
-            animation-play-state: paused;
-        }
-        @keyframes confetti {
-            0% {
-                background-image: 
-                    radial-gradient(circle at 20% 20%, #ff6b6b 1px, transparent 1px),
-                    radial-gradient(circle at 80% 40%, #4ecdc4 1px, transparent 1px),
-                    radial-gradient(circle at 40% 60%, #ffe66d 1px, transparent 1px),
-                    radial-gradient(circle at 70% 70%, #ff6b6b 1px, transparent 1px);
-                background-size: 10% 10%;
-                opacity: 0;
-                transform: translateY(100%);
-            }
-            50% {
-                opacity: 1;
-                background-size: 20% 20%;
-                transform: translateY(0);
-            }
-            100% {
-                background-size: 30% 30%;
-                opacity: 0;
-                transform: translateY(-100%);
-            }
-        }
-        @keyframes cooldown {
-            from { --can-play: 0; }
-            to { --can-play: 1; }
-        }
-        .game-card:hover::after {
-            animation: 
-                var(--can-play) confetti 1s ease-in-out 2s forwards,
-                cooldown 5s step-end 3s forwards;
-        }
-        .game-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-        .game-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #6e8efb, #a777e3);
-        }
-        .game-emoji {
-            font-size: 80px;
-            margin: 20px 0;
-            transition: transform 0.3s ease;
-        }
-        .game-card:hover .game-emoji {
-            transform: scale(1.1);
-        }
-        .game-card h3 {
-            margin: 15px 0 10px 0;
-            color: #2c3e50;
-            font-size: 1.5em;
-        }
-        .game-card p {
-            color: #666;
-            margin: 0;
-            font-size: 1.1em;
-        }
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-        @media (max-width: 600px) {
-            .game-grid {
-                grid-template-columns: 1fr;
-                padding: 10px;
-            }
-            .game-card {
-                padding: 15px;
-            }
-            .game-emoji {
-                font-size: 60px;
-            }
-        }
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            color: #666;
-            font-size: 0.9rem;
-            margin-top: auto;
-            border-top: 1px solid rgba(0,0,0,0.1);
-        }
-        .new-badge {
-            position: absolute;
-            top: 20px;
-            right: -35px;
-            background: linear-gradient(45deg, #FF416C, #FF4B2B);
-            color: white;
-            padding: 8px 35px;
-            font-size: 0.9em;
-            font-weight: bold;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            transform: rotate(45deg);
-            animation: pulse 2s infinite;
-            z-index: 1;
-        }
-        @keyframes pulse {
-            0% {
-                transform: rotate(45deg) scale(1);
-            }
-            50% {
-                transform: rotate(45deg) scale(1.1);
-            }
-            100% {
-                transform: rotate(45deg) scale(1);
-            }
-        }
-    </style>
-    <script>
-        function playClickSound() {
-            const clickSound = document.getElementById('clickSound');
-            clickSound.currentTime = 0; // Reset sound to start
-            clickSound.play();
-        }
-    </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1018">
+  <title>Victor Fang Games | Four Ways to Play</title>
+  <meta name="description" content="Explore four games by Victor Fang: Rocket Car Landing, Hurricane Hero, Arrow Neon, and Word Porch. Find your next arcade adventure or puzzle escape.">
+  <link rel="canonical" href="https://victorfang.com/games/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Victor Fang Games">
+  <meta property="og:title" content="Victor Fang Games | Four Ways to Play">
+  <meta property="og:description" content="Flying cars. Growing storms. Neon puzzles. Word escapes. Explore four games by Victor Fang.">
+  <meta property="og:url" content="https://victorfang.com/games/">
+  <meta property="og:image" content="https://victorfang.com/games/studio-preview.jpg">
+  <meta property="og:image:width" content="1241">
+  <meta property="og:image:height" content="698">
+  <meta property="og:image:alt" content="Rocket Car Landing, Hurricane Hero, Arrow Neon and Word Porch in Victor Fang’s game portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Victor Fang Games | Four Ways to Play">
+  <meta name="twitter:description" content="Flying cars. Growing storms. Neon puzzles. Word escapes. Pick your next little escape.">
+  <meta name="twitter:image" content="https://victorfang.com/games/studio-preview.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23c5f570'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial' font-size='32' font-weight='bold' fill='%230b1018'%3EVF%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="studio.css?v=20261025">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Victor Fang Games","url":"https://victorfang.com/games/","description":"Four games by Victor Fang: flying cars, storm strategy, neon logic puzzles, and relaxing wordplay.","author":{"@type":"Person","name":"Victor Fang","url":"https://victorfang.com/"},"mainEntity":{"@type":"ItemList","numberOfItems":4,"itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"VideoGame","name":"Rocket Car Landing","description":"Boost, fly, and stick the perfect landing.","url":"https://victorfang.com/rocketcarlanding/","image":"https://victorfang.com/rocketcarlanding/logo.png"}},{"@type":"ListItem","position":2,"item":{"@type":"VideoGame","name":"Hurricane Hero","description":"Grow a storm and discover cities.","url":"https://victorfang.com/hurricanehero/","image":"https://victorfang.com/games/hurricane-world.svg"}},{"@type":"ListItem","position":3,"item":{"@type":"VideoGame","name":"Arrow Neon","description":"Untangle glowing arrows. Find your flow.","url":"https://victorfang.com/arrow-neon/","image":"https://victorfang.com/arrow-neon/assets/tokyo.webp"}},{"@type":"ListItem","position":4,"item":{"@type":"VideoGame","name":"Word Porch","description":"Find words. Collect postcards. Share a smile.","url":"https://victorfang.com/word-porch/","image":"https://victorfang.com/word-porch/assets/san-francisco.webp"}}]}}</script>
 </head>
 <body>
-    <audio id="clickSound" preload="auto">
-        <source src="fairy.wav" type="audio/mpeg">
-    </audio>
-    <h1>Victor Fang's Game Collection</h1>
-    <div class="game-grid">
-        <a href="/arrow-neon/">
-            <div class="game-card" style="background:#101017;color:#f5eddf;">
-                <img src="/arrow-neon/assets/icon.png" alt="" width="80" height="80" style="border-radius:18px;margin:20px 0;">
-                <h3 style="color:#ffc18f;">Arrow Neon</h3>
-                <p style="color:#d1c3cb;">Save the light. Find your flow.<br>400 glowing arrow puzzles.</p>
-            </div>
-        </a>
-        <a href="emojimatch/" onclick="playClickSound(); return true;">
-            <div class="game-card">
-                <div class="game-emoji">🎯</div>
-                <h3>Emoji Match</h3>
-                <p>Match and resolve emoji !</p>
-            </div>
-        </a>
-        <a href="emojibaby/" onclick="playClickSound(); return true;">
-            <div class="game-card">
-                <div class="new-badge">NEW!</div>
-                <div class="game-emoji">🐣</div>
-                <h3>Emoji Baby</h3>
-                <p>Guess movies from emoji !</p>
-            </div>
-        </a>
-    </div>
-    <footer>
-        All Rights Reserved. VictorFang.com
-    </footer>
+  <a class="skip-link" href="#main">Skip to games</a>
+  <header class="site-header wrap">
+    <a class="wordmark" href="/" aria-label="Victor Fang homepage"><span class="vf-mark" aria-hidden="true">VF</span><span>Victor Fang<span class="studio-label">Game studio</span></span></a>
+    <a class="home-link" href="/">Back to home <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="main" class="wrap">
+    <section class="intro" aria-labelledby="page-title"><div><p class="eyebrow">THE GAME COLLECTION</p><h1 id="page-title">Four ways to <span>play.</span></h1><p class="intro-copy">Original games by Victor Fang. Find your next little escape.</p></div><span class="collection-count" aria-label="4 games">04<span>GAMES</span></span></section>
+    <ul class="game-grid" aria-label="Games by Victor Fang">
+      <li><a class="game-card rocket" href="/rocketcarlanding/" aria-label="Explore Rocket Car Landing">
+        <div class="game-art"><img src="/rocketcarlanding/logo.png" alt="Rocket Car Landing artwork with a flying sports car" width="256" height="256" fetchpriority="high"></div>
+        <div class="game-copy"><span class="genre">Flying cars</span><h2>Rocket Car Landing</h2><p>Boost, fly, and stick the perfect landing.</p><span class="game-cta">Explore game <span class="arrow-icon" aria-hidden="true">↗</span></span></div>
+      </a></li>
+      <li><a class="game-card hurricane" href="/hurricanehero/" aria-label="Explore Hurricane Hero">
+        <div class="game-art"><img src="/games/hurricane-world.svg" alt="Hurricane Hero world with city landmarks and a swirling storm" width="1000" height="1000" loading="lazy"></div>
+        <div class="game-copy"><span class="genre">Storm strategy</span><h2>Hurricane Hero</h2><p>Grow a storm and discover cities.</p><span class="game-cta">Explore game <span class="arrow-icon" aria-hidden="true">↗</span></span></div>
+      </a></li>
+      <li><a class="game-card arrow" href="/arrow-neon/" aria-label="Explore Arrow Neon">
+        <div class="game-art"><img src="/arrow-neon/assets/tokyo.webp" alt="Arrow Neon artwork set in a glowing Tokyo cityscape" width="1672" height="941" loading="lazy"></div>
+        <div class="game-copy"><span class="genre">Arrow puzzles</span><h2>Arrow Neon</h2><p>Untangle glowing arrows. Find your flow.</p><span class="game-cta">Explore game <span class="arrow-icon" aria-hidden="true">↗</span></span></div>
+      </a></li>
+      <li><a class="game-card porch" href="/word-porch/" aria-label="Explore Word Porch">
+        <div class="game-art"><img src="/word-porch/assets/san-francisco.webp" alt="Word Porch scene overlooking the Golden Gate Bridge from a sunny porch" width="1400" height="933" loading="lazy"></div>
+        <div class="game-copy"><span class="genre">Word puzzles</span><h2>Word Porch</h2><p>Find words. Collect postcards. Share a smile.</p><span class="game-cta">Explore game <span class="arrow-icon" aria-hidden="true">↗</span></span></div>
+      </a></li>
+    </ul>
+  </main>
+  <footer class="site-footer wrap"><span>© 2026 Victor Fang.</span><a href="/">More about Victor <span aria-hidden="true">↗</span></a></footer>
 </body>
-</html> 
+</html>
