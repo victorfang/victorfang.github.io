@@ -1,0 +1,17 @@
+Copyright (c) Victor Fang, 2026. Author: Victor Fang.
+
+Website gallery media uses existing game captures and artwork.
+Copies are resized and WebP-encoded without cropping or changing their content.
+
+rocketcarlanding/assets/gallery-safe-landing.webp: existing gameplay from actual-safe-landing.png.
+rocketcarlanding/assets/gallery-garage.webp: existing game screen from phone-free.png.
+rocketcarlanding/assets/gallery-gold-art.webp: existing artwork from menu-gold-garage.png.
+hurricanehero/assets/gallery-gameplay.webp: existing gameplay from 01-gameplay.png.
+hurricanehero/assets/gallery-explore.webp: existing game screen from 02-explore.png.
+hurricanehero/assets/gallery-cities.webp: existing game screen from 05-city.png.
+arrow-neon/assets/gallery-neon-grid.webp: existing gameplay from iphone-grid-200.png.
+arrow-neon/assets/gallery-sushi.webp: existing gameplay from iphone-sushi.png.
+arrow-neon/assets/gallery-tokyo-art.webp: existing story artwork from neon-keepers-tokyo.png.
+word-porch/assets/gallery-word-puzzle.webp: fresh native iPhone tutorial capture from 02-example-puzzle.jpg.
+word-porch/assets/gallery-san-francisco.webp: existing destination artwork from san-francisco.webp.
+word-porch/assets/gallery-postcard.webp: existing postcard example from word-porch-san-francisco.jpg.
