@@ -1,6 +1,6 @@
 // Hurricane Hero.  Author: Victor Fang, 2026
 // Shared, dependency-free link contract for the game and public landing page.
-export const CHALLENGE_MARKETING_URL = 'https://victorfang.com/hurricanehero/';
+export const CHALLENGE_MARKETING_URL = 'https://fang.ventures/hurricanehero/';
 export const CHALLENGE_GAME_URL = 'https://hurricane-hero.vicfcs.chatgpt.site/';
 export const CHALLENGE_REGIONS = Object.freeze([
  ['atlantic','Caribbean'], ['pacific','Hawaiʻi'], ['indian','SW Indian Ocean'],
